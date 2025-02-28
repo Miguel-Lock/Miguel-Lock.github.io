@@ -1,1 +1,1 @@
-# cookbook-fe
+# Cookbook project
