@@ -1,27 +1,23 @@
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
 import ThemeProvider from "@/theme/ThemeProvider";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { ThemeProvider as MuiThemeProvider } from "@mui/material/styles";
+import { getTheme } from "@/theme/theme";
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider as AppThemeProvider } from "@/context/ThemeContext";
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <ThemeProvider>{children}</ThemeProvider>
-      </body>
+      {/* <GeistSans /> */}
+      <AppThemeProvider>
+        <ThemeProvider>
+          <CssBaseline />
+          {children}
+        </ThemeProvider>
+      </AppThemeProvider>
     </html>
   );
 }
