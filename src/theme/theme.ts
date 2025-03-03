@@ -1,44 +1,55 @@
 import { createTheme } from "@mui/material/styles";
 
-// Define color constants
+// Define color constants to avoid hardcoding hex values
 const colors = {
   light: {
     background: "#ffffff",
     paper: "#f5f5f5",
     text: "#171717",
+    primary: "#a7abdd",
+    primaryHover: "#8a8fc0",
+    secondary: "#3fba9d",
+    secondaryHover: "#35a289",
+    accent: "#ff6b6b",
+    accentHover: "#ff5252",
+    buttonText: "#0a0a0a",
   },
   dark: {
-    background: "#121212",
+    background: "#0a0a0a",
     paper: "#1e1e1e",
-    text: "#f5f5f5",
-  },
-  common: {
-    primary: "#fafafa",
-    secondary: "#3fba9d",
+    text: "#ededed",
+    primary: "#161e7f",
+    primaryHover: "#2a3391",
+    secondary: "#3db399",
+    secondaryHover: "#45c1a6",
+    accent: "#ff8787",
+    accentHover: "#ff6b6b",
+    buttonText: "#ffffff",
   },
 };
 
 // Create a function that returns the theme based on mode
-export const getTheme = (mode: "light" | "dark") =>
-  createTheme({
+export const getTheme = (mode: "light" | "dark") => {
+  const themeColors = mode === "light" ? colors.light : colors.dark;
+
+  return createTheme({
     palette: {
-      mode,
       primary: {
-        main: colors.common.primary,
+        main: themeColors.primary,
       },
       secondary: {
-        main: colors.common.secondary,
+        main: themeColors.secondary,
       },
       background: {
-        default:
-          mode === "light" ? colors.light.background : colors.dark.background,
-        paper: mode === "light" ? colors.light.paper : colors.dark.paper,
+        default: themeColors.background,
+        paper: themeColors.paper,
       },
       text: {
-        primary: mode === "light" ? colors.light.text : colors.dark.text,
+        primary: themeColors.text,
       },
     },
     typography: {
-      fontFamily: "var(--font-geist-sans)", // Font variables still work fine
+      fontFamily: "Arial, Helvetica, sans-serif",
     },
   });
+};
