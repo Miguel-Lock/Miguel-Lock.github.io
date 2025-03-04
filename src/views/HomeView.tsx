@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {
   AppBar,
@@ -18,6 +20,8 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import AppHeader from "@/components/AppHeader";
+import { routes } from "@/routes";
+import { useRouter } from "next/navigation";
 
 const recipes = [
   {
@@ -87,7 +91,9 @@ const recipes = [
   // Duplicate for additional recipe cards
 ];
 
-const HomeView = () => {
+export function HomeView() {
+  const router = useRouter();
+
   return (
     <Box>
       {/* Navbar */}
@@ -110,6 +116,10 @@ const HomeView = () => {
               marginTop: "20px",
               padding: "16px",
               boxShadow: 3,
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              router.push(routes.directions);
             }}
           >
             <CardMedia
@@ -182,7 +192,12 @@ const HomeView = () => {
           <Grid container spacing={3}>
             {recipes.map((recipe, index) => (
               <Grid item xs={12} sm={6} md={4} key={index}>
-                <Card sx={{ boxShadow: 2, borderRadius: "10px" }}>
+                <Card
+                  sx={{ boxShadow: 2, borderRadius: "10px", cursor: "pointer" }}
+                  onClick={() => {
+                    router.push(routes.directions);
+                  }}
+                >
                   <CardMedia
                     component="img"
                     height="150"
@@ -208,6 +223,4 @@ const HomeView = () => {
       </Container>
     </Box>
   );
-};
-
-export default HomeView;
+}

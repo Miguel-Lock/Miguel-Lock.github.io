@@ -1,13 +1,14 @@
 type AppRoutes = {
   home: string;
-  shoppingCart: string;
-  // Add more routes as needed. Example
-  //   recipe: (id: string) => string;
+  recipes: string;
+  directions: string;
+  // long term: directions needs to be a dynamic link.
+  // directions: (id: string) => string;
 };
 
 export const routes: AppRoutes = {
   home: "/",
-  shoppingCart: "/shopping-cart",
-  // Add more routes as needed. Example:
-  //   recipe: (id) => `/recipes/${id}`,
+  recipes: "/recipes",
+  directions: "/directions",
+  // directions: (id) => `/directions/${id}`,
 };

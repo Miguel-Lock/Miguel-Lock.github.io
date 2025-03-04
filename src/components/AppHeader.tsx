@@ -1,16 +1,13 @@
 "use client";
 
-import Link from "next/link";
 import {
   AppBar,
   Toolbar,
   Typography,
   Button,
   IconButton,
-  useMediaQuery,
+  Divider,
 } from "@mui/material";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import HomeIcon from "@mui/icons-material/Home";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { routes } from "@/routes";
@@ -25,9 +22,17 @@ export function AppHeader() {
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
           Lab to Ladle
         </Typography>
-        <Button color="inherit">Recipes</Button>
-        <Button color="inherit">Favorites</Button>
-        <Button color="inherit">My Story</Button>
+        <Button color="inherit" href={routes.home}>
+          Home
+        </Button>
+        <Divider
+          orientation="vertical"
+          flexItem
+          sx={{ borderColor: "text.primary" }}
+        />
+        <Button color="inherit" href={routes.recipes}>
+          Recipes
+        </Button>
         <IconButton color="inherit" onClick={toggleMode}>
           {themeMode === "dark" ? <LightModeIcon /> : <DarkModeIcon />}
         </IconButton>

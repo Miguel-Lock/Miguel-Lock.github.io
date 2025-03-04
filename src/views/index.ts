@@ -1,2 +1,3 @@
-export { HomeView } from "./NextView";
-export { CartView } from "./CartView";
+export { HomeView } from "./HomeView";
+export { RecipesView } from "./RecipesView";
+export { DirectionsView } from "./DirectionsView";
