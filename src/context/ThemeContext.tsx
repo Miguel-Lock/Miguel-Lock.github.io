@@ -39,7 +39,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
         newMode = "dark";
         break;
       case "dark":
-        newMode = "system";
+        newMode = "light";
         break;
       case "system":
         newMode = "light";

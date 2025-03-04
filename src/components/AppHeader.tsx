@@ -20,27 +20,14 @@ export function AppHeader() {
   const { themeMode, toggleMode } = useTheme();
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ bgcolor: "primary", padding: "10px" }}>
       <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Cookbook
+        <Typography variant="h6" sx={{ flexGrow: 1 }}>
+          Lab to Ladle
         </Typography>
-        <Button
-          color="inherit"
-          component={Link}
-          href={routes.home}
-          startIcon={<HomeIcon />}
-        >
-          Home
-        </Button>
-        <Button
-          color="inherit"
-          component={Link}
-          href={routes.shoppingCart}
-          startIcon={<ShoppingCartIcon />}
-        >
-          Cart
-        </Button>
+        <Button color="inherit">Recipes</Button>
+        <Button color="inherit">Favorites</Button>
+        <Button color="inherit">My Story</Button>
         <IconButton color="inherit" onClick={toggleMode}>
           {themeMode === "dark" ? <LightModeIcon /> : <DarkModeIcon />}
         </IconButton>
