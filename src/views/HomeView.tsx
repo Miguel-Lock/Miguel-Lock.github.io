@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {
   AppBar,
@@ -87,7 +89,7 @@ const recipes = [
   // Duplicate for additional recipe cards
 ];
 
-const HomeView = () => {
+export function HomeView() {
   return (
     <Box>
       {/* Navbar */}
@@ -208,6 +210,4 @@ const HomeView = () => {
       </Container>
     </Box>
   );
-};
-
-export default HomeView;
+}
