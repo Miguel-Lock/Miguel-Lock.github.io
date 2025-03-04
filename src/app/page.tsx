@@ -1,4 +1,4 @@
-import { HomeView } from "@/views/HomeView";
+import HomeView from "@/views/HomeView";
 
 export const metadata = {
   title: "Cookbook - Home",
