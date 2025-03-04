@@ -20,6 +20,8 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import AppHeader from "@/components/AppHeader";
+import { routes } from "@/routes";
+import { useRouter } from "next/navigation";
 
 const recipes = [
   {
@@ -90,6 +92,8 @@ const recipes = [
 ];
 
 export function HomeView() {
+  const router = useRouter();
+
   return (
     <Box>
       {/* Navbar */}
@@ -112,6 +116,10 @@ export function HomeView() {
               marginTop: "20px",
               padding: "16px",
               boxShadow: 3,
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              router.push(routes.directions);
             }}
           >
             <CardMedia
@@ -184,7 +192,12 @@ export function HomeView() {
           <Grid container spacing={3}>
             {recipes.map((recipe, index) => (
               <Grid item xs={12} sm={6} md={4} key={index}>
-                <Card sx={{ boxShadow: 2, borderRadius: "10px" }}>
+                <Card
+                  sx={{ boxShadow: 2, borderRadius: "10px", cursor: "pointer" }}
+                  onClick={() => {
+                    router.push(routes.directions);
+                  }}
+                >
                   <CardMedia
                     component="img"
                     height="150"
