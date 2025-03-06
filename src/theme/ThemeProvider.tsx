@@ -4,7 +4,6 @@ import { ThemeProvider as MUIThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { getTheme } from "./theme"; // Your theme configuration
 import EmotionRegistry from "./EmotionRegistry";
-import { ThemeProvider as AppThemeProvider } from "@/context/ThemeContext";
 import { useTheme } from "@/context/ThemeContext";
 
 export default function ThemeProvider({
