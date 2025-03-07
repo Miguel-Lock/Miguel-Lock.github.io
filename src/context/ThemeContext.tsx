@@ -23,7 +23,8 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const [mode, setMode] = useState<ThemeMode>("system");
 
   const themeMode =
-    mode === "system" ? (prefersDarkMode ? "dark" : "light") : mode;
+    // mode === "system" ? (prefersDarkMode ? "dark" : "light") : mode;
+    mode === "system" ? (prefersDarkMode ? "light" : "light") : mode;
 
   // Get the theme configuration based on current theme mode
   const currentTheme = getTheme(themeMode);

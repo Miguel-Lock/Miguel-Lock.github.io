@@ -33,9 +33,11 @@ export function AppHeader() {
         <Button color="inherit" href={routes.recipes}>
           Recipes
         </Button>
+        {/* 
         <IconButton color="inherit" onClick={toggleMode}>
           {themeMode === "dark" ? <LightModeIcon /> : <DarkModeIcon />}
         </IconButton>
+        */}
       </Toolbar>
     </AppBar>
   );
