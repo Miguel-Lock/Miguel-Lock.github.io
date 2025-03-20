@@ -4,14 +4,9 @@ import { createTheme } from "@mui/material/styles";
 const colors = {
   light: {
     background: "#ffffff",
-    paper: "#f5f5f5",
+    paper: "#d9d9d9",
     text: "#171717",
-    primary: "#a7abdd",
-    primaryHover: "#8a8fc0",
-    secondary: "#3fba9d",
-    secondaryHover: "#35a289",
-    accent: "#ff6b6b",
-    accentHover: "#ff5252",
+    primary: "#f09595",
     buttonText: "#0a0a0a",
   },
   dark: {
@@ -19,11 +14,6 @@ const colors = {
     paper: "#1e1e1e",
     text: "#ededed",
     primary: "#161e7f",
-    primaryHover: "#2a3391",
-    secondary: "#3db399",
-    secondaryHover: "#45c1a6",
-    accent: "#ff8787",
-    accentHover: "#ff6b6b",
     buttonText: "#ffffff",
   },
 };
@@ -37,9 +27,9 @@ export const getTheme = (mode: "light" | "dark") => {
       primary: {
         main: themeColors.primary,
       },
-      secondary: {
-        main: themeColors.secondary,
-      },
+      // secondary: {
+      //   main: themeColors.secondary,
+      // },
       background: {
         default: themeColors.background,
         paper: themeColors.paper,

@@ -5,16 +5,16 @@ import {
   Toolbar,
   Typography,
   Button,
-  IconButton,
+  // IconButton,
   Divider,
 } from "@mui/material";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
+// import LightModeIcon from "@mui/icons-material/LightMode";
+// import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { routes } from "@/routes";
-import { useTheme } from "@/context/ThemeContext";
+// import { useTheme } from "@/context/ThemeContext";
 
 export function AppHeader() {
-  const { themeMode, toggleMode } = useTheme();
+  // const { themeMode, toggleMode } = useTheme();
 
   return (
     <AppBar position="static" sx={{ bgcolor: "primary", padding: "10px" }}>
