@@ -11,7 +11,7 @@ import {
   Container,
 } from "@mui/material";
 import AppHeader from "@/components/AppHeader";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import SearchIcon from "@mui/icons-material/Search";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import RecipeCard from "@/components/RecipeCard";
@@ -85,7 +85,7 @@ const recipes = [
 ];
 
 export function RecipesView() {
-  const router = useRouter();
+  // const router = useRouter();
 
   return (
     <Box>

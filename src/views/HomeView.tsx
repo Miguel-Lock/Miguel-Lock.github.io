@@ -1,21 +1,13 @@
 "use client";
 
 import React from "react";
-import {
-  Typography,
-  Box,
-  Card,
-  CardContent,
-  CardMedia,
-  Chip,
-  Container,
-} from "@mui/material";
+import { Typography, Box, Container } from "@mui/material";
 import AppHeader from "@/components/AppHeader";
 import FeaturedRecipeCard from "@/components/FeaturedRecipeCard";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 
 export function HomeView() {
-  const router = useRouter();
+  // const router = useRouter();
 
   return (
     <Box>

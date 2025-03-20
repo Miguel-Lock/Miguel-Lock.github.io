@@ -8,7 +8,6 @@ import {
   CardContent,
   CardMedia,
   Chip,
-  Container,
 } from "@mui/material";
 import { routes } from "@/routes";
 import { useRouter } from "next/navigation";
