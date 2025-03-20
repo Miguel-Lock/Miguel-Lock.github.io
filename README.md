@@ -36,7 +36,7 @@ To run production server, npm lint must display any errors. Then:
 
 ```sh
 npm run build
-npm run start
+npx serve@latest out
 ```
 
 Project defaults to [http://localhost:3000](http://localhost:3000)
