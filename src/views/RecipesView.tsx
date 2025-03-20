@@ -4,10 +4,6 @@ import React from "react";
 import {
   Typography,
   Box,
-  Card,
-  CardContent,
-  CardMedia,
-  Chip,
   Grid,
   TextField,
   IconButton,
@@ -15,10 +11,10 @@ import {
   Container,
 } from "@mui/material";
 import AppHeader from "@/components/AppHeader";
-import { routes } from "@/routes";
 import { useRouter } from "next/navigation";
 import SearchIcon from "@mui/icons-material/Search";
 import FilterListIcon from "@mui/icons-material/FilterList";
+import RecipeCard from "@/components/RecipeCard";
 
 const recipes = [
   {
@@ -134,30 +130,7 @@ export function RecipesView() {
           <Grid container spacing={3}>
             {recipes.map((recipe, index) => (
               <Grid item xs={12} sm={6} md={4} key={index}>
-                <Card
-                  sx={{ boxShadow: 2, borderRadius: "10px", cursor: "pointer" }}
-                  onClick={() => {
-                    router.push(routes.directions);
-                  }}
-                >
-                  <CardMedia
-                    component="img"
-                    height="150"
-                    image={recipe.image}
-                    alt={recipe.title}
-                  />
-                  <CardContent>
-                    <Typography variant="h6">{recipe.title}</Typography>
-                    <Typography variant="body2">
-                      Nihilnihil eos in nobis odio rem. Quosvit vitae illo,
-                      dolor, sed dolores...
-                    </Typography>
-                    <Chip
-                      label={recipes[0].time}
-                      sx={{ bgcolor: "primary.main", my: 2 }}
-                    />
-                  </CardContent>
-                </Card>
+                <RecipeCard recipe={recipe} />
               </Grid>
             ))}
           </Grid>
