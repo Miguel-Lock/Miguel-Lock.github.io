@@ -7,16 +7,16 @@ import { useRouter } from "next/navigation";
 
 interface Recipe {
   id: number;
-  name: string;
-  prep_time: string;
-  category: string;
-  ingredients: string[];
-  dietary: string[];
-  season: string;
-  cuisine: string;
-  difficulty: string;
-  images: string[];
-  steps: string[];
+  name?: string;
+  prep_time?: string;
+  category?: string;
+  ingredients?: string[];
+  dietary?: string[];
+  season?: string;
+  cuisine?: string;
+  difficulty?: string;
+  images?: string[];
+  steps?: string[];
   story: string;
 }
 
