@@ -35,27 +35,27 @@ import winter from "@/../public/recipes/winter_recipes.json";
 
 interface Recipe {
   id: number;
-  name: string;
-  prep_time: string;
-  category: string;
-  ingredients: string[];
-  dietary: string[];
-  season: string;
-  cuisine: string;
-  difficulty: string;
-  images: string[];
-  steps: string[];
+  name?: string;
+  prep_time?: string;
+  category?: string;
+  ingredients?: string[];
+  dietary?: string[];
+  season?: string;
+  cuisine?: string;
+  difficulty?: string;
+  images?: string[];
+  steps?: string[];
   story: string;
 }
 
-let allRecipes: any[] = [];
+const allRecipes: Recipe[] = [];
 let typingTimer: ReturnType<typeof setTimeout>;
 
 const doneTypingInterval = 500;
 
 //initialize the recipes object array
 stories.forEach((story) => {
-  let recipe: any = { ...story };
+  let recipe: Recipe = { id: story.id, story: story.story };
 
   const apps = appetizers.filter((recipes) => recipes.id === recipe.id);
   if (apps.length > 0) recipe = { ...recipe, ...apps[0] };
@@ -108,57 +108,19 @@ stories.forEach((story) => {
 });
 
 const search = (target: string, recipes: Recipe[]) => {
-  let results: Recipe[] = [];
   target = target.toLowerCase();
-
   //search by the name, prep_time, cuisine, dietary[], seasonal, and ingredients[]
 
-  const nameResults = recipes.filter((recipe) =>
-    recipe.name.toLowerCase().includes(target)
-  );
-  console.log(nameResults.length, " name matches");
-  results = results.concat(nameResults);
-
-  const ingredientResults = recipes.filter((recipe) => {
-    recipe.ingredients.filter((ingredient: string) =>
-      ingredient.toLowerCase().includes(target)
-    ).length > 0;
-  });
-  console.log(ingredientResults.length, " ingredient matches");
-  results = results.concat(ingredientResults);
-
-  const timeResults = recipes.filter((recipe) =>
-    recipe.prep_time.toLowerCase().includes(target)
-  );
-  console.log(timeResults.length, " time matches");
-  results = results.concat(timeResults);
-
-  const cuisineResults = recipes.filter((recipe) =>
-    recipe.cuisine.toLowerCase().includes(target)
-  );
-  console.log(cuisineResults.length, " cuisine matches");
-  results = results.concat(cuisineResults);
-
-  const dietaryResults = recipes.filter((recipe) => {
+  return recipes.filter((recipe) => {
     return (
-      recipe.dietary.filter((diet: string) =>
-        diet.toLowerCase().includes(target)
-      ).length > 0
+      recipe.name?.toLowerCase().includes(target) ||
+      recipe.ingredients?.some((i) => i.toLowerCase().includes(target)) ||
+      recipe.prep_time?.toLowerCase().includes(target) ||
+      recipe.cuisine?.toLowerCase().includes(target) ||
+      recipe.dietary?.some((d) => d.toLowerCase().includes(target)) ||
+      recipe.season?.toLowerCase().includes(target)
     );
   });
-
-  results = results.concat(dietaryResults);
-
-  const seasonalResults = recipes.filter((recipe) =>
-    recipe.season.toLowerCase().includes(target)
-  );
-  results = results.concat(seasonalResults);
-
-  console.log(seasonalResults.length, " seasonal matches");
-
-  results = [...new Set(results)]; //remove duplicates
-
-  return results;
 };
 
 export function RecipesView() {
