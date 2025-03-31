@@ -7,16 +7,16 @@ import { useRouter } from "next/navigation";
 
 interface Recipe {
   id: number;
-  name?: string;
-  prep_time?: string;
-  category?: string;
-  ingredients?: string[];
-  dietary?: string[];
-  season?: string;
-  cuisine?: string;
-  difficulty?: string;
-  images?: string[];
-  steps?: string[];
+  name: string;
+  prep_time: string;
+  category: string;
+  ingredients: string[];
+  dietary: string[];
+  season: string;
+  cuisine: string;
+  difficulty: string;
+  images: string[];
+  steps: string[];
   story: string;
 }
 
@@ -44,7 +44,7 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
       <CardMedia
         component="img"
         height="150"
-        //image={"/image_files/" + recipe.images[0]}
+        image={"/image_files/" + recipe.images[0]}
         alt={recipe.name}
       />
       <CardContent>
