@@ -1,10 +1,6 @@
-import { DirectionsView } from "@/views";
-
-export const metadata = {
-  title: "Cookbook - Directions",
-  description: "Your directions page",
-};
+"use client";
+import { redirect } from "next/navigation";
 
 export default function DirectionsPage() {
-  return <DirectionsView />;
+  redirect("/directions/1");
 }

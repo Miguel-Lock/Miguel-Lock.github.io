@@ -9,6 +9,5 @@ type AppRoutes = {
 export const routes: AppRoutes = {
   home: "/",
   recipes: "/recipes",
-  directions: "/directions",
-  // directions: (id) => `/directions/${id}`,
+  directions: "/directions/:id",
 };
