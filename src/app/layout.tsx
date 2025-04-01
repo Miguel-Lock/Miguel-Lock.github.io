@@ -1,6 +1,7 @@
 import ThemeProvider from "@/theme/ThemeProvider";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider as AppThemeProvider } from "@/context/ThemeContext";
+import { RecipeProvider } from "@/context/RecipeContext";
 
 export default function RootLayout({
   children,
@@ -13,7 +14,7 @@ export default function RootLayout({
       <AppThemeProvider>
         <ThemeProvider>
           <CssBaseline />
-          {children}
+          <RecipeProvider>{children}</RecipeProvider>
         </ThemeProvider>
       </AppThemeProvider>
     </html>

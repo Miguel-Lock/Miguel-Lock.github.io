@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useContext, useState } from "react";
 import {
   Typography,
   Box,
@@ -15,77 +15,58 @@ import AppHeader from "@/components/AppHeader";
 import SearchIcon from "@mui/icons-material/Search";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import RecipeCard from "@/components/RecipeCard";
+import { useRecipes } from "@/context/RecipeContext";
 
-const recipes = [
-  {
-    title: "Caprese Skewers",
-    time: "10 Min",
-    category: "Italian",
-    type: "Appetizer",
-    difficulty: "Easy",
-    description:
-      "Caprese Skewers are one of my favorite appetizers because they combine the classic flavors of Italy with a modern, playful presentation...",
-    image: "Caprese-Skewers.png", // Replace with actual image
-  },
+interface Recipe {
+  id: number;
+  name: string;
+  prep_time: string;
+  category: string;
+  ingredients: string[];
+  dietary: string[];
+  season: string;
+  cuisine: string;
+  difficulty: string;
+  images: string[];
+  steps: string[];
+  story: string;
+}
 
-  {
-    title: "Caprese Skewers",
-    time: "10 Min",
-    category: "Italian",
-    type: "Appetizer",
-    difficulty: "Easy",
-    description:
-      "Caprese Skewers are one of my favorite appetizers because they combine the classic flavors of Italy with a modern, playful presentation...",
-    image: "Caprese-Skewers.png", // Replace with actual image
-  },
-  {
-    title: "Caprese Skewers",
-    time: "10 Min",
-    category: "Italian",
-    type: "Appetizer",
-    difficulty: "Easy",
-    description:
-      "Caprese Skewers are one of my favorite appetizers because they combine the classic flavors of Italy with a modern, playful presentation...",
-    image: "Caprese-Skewers.png", // Replace with actual image
-  },
+let typingTimer: ReturnType<typeof setTimeout>;
+const doneTypingInterval = 500;
 
-  {
-    title: "Caprese Skewers",
-    time: "10 Min",
-    category: "Italian",
-    type: "Appetizer",
-    difficulty: "Easy",
-    description:
-      "Caprese Skewers are one of my favorite appetizers because they combine the classic flavors of Italy with a modern, playful presentation...",
-    image: "Caprese-Skewers.png", // Replace with actual image
-  },
-
-  {
-    title: "Caprese Skewers",
-    time: "10 Min",
-    category: "Italian",
-    type: "Appetizer",
-    difficulty: "Easy",
-    description:
-      "Caprese Skewers are one of my favorite appetizers because they combine the classic flavors of Italy with a modern, playful presentation...",
-    image: "Caprese-Skewers.png", // Replace with actual image
-  },
-
-  {
-    title: "Caprese Skewers",
-    time: "10 Min",
-    category: "Italian",
-    type: "Appetizer",
-    difficulty: "Easy",
-    description:
-      "Caprese Skewers are one of my favorite appetizers because they combine the classic flavors of Italy with a modern, playful presentation...",
-    image: "Caprese-Skewers.png", // Replace with actual image
-  },
-  // Duplicate for additional recipe cards
-];
+//initialize the recipes object array
 
 export function RecipesView() {
   // const router = useRouter();
+  const { recipes } = useRecipes();
+  const [displayedRecipes, setDisplayedRecipes] = useState(recipes);
+
+  //waits for .5s since the user stops typing to search
+  const delayedSearch = (target: string) => {
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(
+      () => setDisplayedRecipes(search(target, recipes)),
+      doneTypingInterval
+    );
+  };
+
+  const search = (target: string, recipes: Recipe[]) => {
+    target = target.toLowerCase();
+    //search by the name, prep_time, cuisine, dietary[], seasonal, category, and ingredients[]
+
+    return recipes.filter((recipe) => {
+      return (
+        recipe.name?.toLowerCase().includes(target) ||
+        recipe.ingredients?.some((i) => i.toLowerCase().includes(target)) ||
+        recipe.prep_time?.toLowerCase().includes(target) ||
+        recipe.cuisine?.toLowerCase().includes(target) ||
+        recipe.dietary?.some((d) => d.toLowerCase().includes(target)) ||
+        recipe.season?.toLowerCase().includes(target) ||
+        recipe.category?.toLowerCase().includes(target)
+      );
+    });
+  };
 
   return (
     <Box>
@@ -123,12 +104,15 @@ export function RecipesView() {
                   </InputAdornment>
                 ),
               }}
+              onChange={(e) => {
+                delayedSearch(e.target.value);
+              }}
             />
           </Box>
 
           {/* Recipe Grid */}
           <Grid container spacing={3}>
-            {recipes.map((recipe, index) => (
+            {displayedRecipes.map((recipe, index) => (
               <Grid item xs={12} sm={6} md={4} key={index}>
                 <RecipeCard recipe={recipe} />
               </Grid>
