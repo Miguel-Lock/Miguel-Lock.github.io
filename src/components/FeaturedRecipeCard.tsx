@@ -57,6 +57,7 @@ export function FeaturedRecipeCard() {
     <Card
       sx={{
         display: "flex",
+        flexDirection: { xs: "column", sm: "row" },
         marginTop: "20px",
         padding: "16px",
         boxShadow: 3,
@@ -68,13 +69,25 @@ export function FeaturedRecipeCard() {
     >
       <CardMedia
         component="img"
-        sx={{ width: 200, borderRadius: "10px" }}
+        sx={{
+          width: { xs: "100%", sm: 200 },
+          height: { xs: 200, sm: "auto" },
+          objectFit: "cover",
+          borderRadius: "10px",
+        }}
         image={"/image_files/" + recipeOfTheDay.images[0]}
         alt={recipeOfTheDay.name}
       />
       <CardContent>
         <Typography variant="h5">{recipeOfTheDay.name}</Typography>
-        <Box sx={{ display: "flex", gap: 1, marginTop: 1 }}>
+        <Box
+          sx={{
+            display: "flex",
+            gap: 1,
+            marginTop: 1,
+            flexWrap: "wrap",
+          }}
+        >
           <InfoChip label={recipeOfTheDay.prep_time} />
           <InfoChip label={recipeOfTheDay.category} />
           <InfoChip label={recipeOfTheDay.cuisine} />
