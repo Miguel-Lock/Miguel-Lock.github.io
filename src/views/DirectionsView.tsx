@@ -81,7 +81,7 @@ export function DirectionsView(props: any) {
           <Typography>
             {readMore
               ? displayedRecipe.story
-              : displayedRecipe.story.substring(0, 200)}
+              : displayedRecipe.story.substring(0, 200) + "..."}
           </Typography>
           <Button
             variant="contained"
