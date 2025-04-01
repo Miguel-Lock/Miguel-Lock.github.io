@@ -11,22 +11,33 @@ import {
 } from "@mui/material";
 import { routes } from "@/routes";
 import { useRouter } from "next/navigation";
+import { useRecipes } from "@/context/RecipeContext";
 
-const recipes = [
-  {
-    title: "Caprese Skewers",
-    time: "10 Min",
-    category: "Italian",
-    type: "Appetizer",
-    difficulty: "Easy",
-    description:
-      "Caprese Skewers are one of my favorite appetizers because they combine the classic flavors of Italy with a modern, playful presentation...",
-    image: "Caprese-Skewers.png",
-  },
-];
+interface Recipe {
+  id: number;
+  name: string;
+  prep_time: string;
+  category: string;
+  ingredients: string[];
+  dietary: string[];
+  season: string;
+  cuisine: string;
+  difficulty: string;
+  images: string[];
+  steps: string[];
+  story: string;
+}
 
 export function FeaturedRecipeCard() {
   const router = useRouter();
+
+  const { getRecipeById } = useRecipes();
+  const currentDate = new Date();
+  const recipeOfTheDayIndex =
+    currentDate.getDay() * currentDate.getMonth() +
+    ((1 * currentDate.getFullYear()) % 80) +
+    1;
+  const recipeOfTheDay: Recipe | undefined = getRecipeById(recipeOfTheDayIndex);
 
   return (
     <Card
@@ -38,28 +49,37 @@ export function FeaturedRecipeCard() {
         cursor: "pointer",
       }}
       onClick={() => {
-        router.push(routes.directions);
+        router.push(routes.directions(recipeOfTheDayIndex));
       }}
     >
       <CardMedia
         component="img"
         sx={{ width: 200, borderRadius: "10px" }}
-        image={recipes[0].image}
-        alt="Caprese Skewers"
+        image={"/image_files/" + recipeOfTheDay?.images[0]}
+        alt={recipeOfTheDay?.name}
       />
       <CardContent>
-        <Typography variant="h5">{recipes[0].title}</Typography>
+        <Typography variant="h5">{recipeOfTheDay?.name}</Typography>
         <Box sx={{ display: "flex", gap: 1, marginTop: 1 }}>
-          <Chip label={recipes[0].time} sx={{ bgcolor: "primary.main" }} />
-          <Chip label={recipes[0].category} sx={{ bgcolor: "primary.main" }} />
-          <Chip label={recipes[0].type} sx={{ bgcolor: "primary.main" }} />
           <Chip
-            label={recipes[0].difficulty}
+            label={recipeOfTheDay?.prep_time}
+            sx={{ bgcolor: "primary.main" }}
+          />
+          <Chip
+            label={recipeOfTheDay?.category}
+            sx={{ bgcolor: "primary.main" }}
+          />
+          <Chip
+            label={recipeOfTheDay?.cuisine}
+            sx={{ bgcolor: "primary.main" }}
+          />
+          <Chip
+            label={recipeOfTheDay?.difficulty}
             sx={{ bgcolor: "primary.main" }}
           />
         </Box>
         <Typography variant="body2" sx={{ marginTop: "10px" }}>
-          {recipes[0].description}
+          {recipeOfTheDay?.story.substring(0, 200) + "..."}
         </Typography>
       </CardContent>
     </Card>

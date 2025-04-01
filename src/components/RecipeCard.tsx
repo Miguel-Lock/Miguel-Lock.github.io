@@ -38,7 +38,7 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
         minHeight: 400,
       }}
       onClick={() => {
-        router.push(routes.directions);
+        router.push(routes.directions(recipe.id));
       }}
     >
       <CardMedia
