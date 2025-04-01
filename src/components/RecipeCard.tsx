@@ -1,9 +1,10 @@
 "use client";
 
 import React from "react";
-import { Typography, Card, CardContent, CardMedia, Chip } from "@mui/material";
+import { Typography, Card, CardContent, CardMedia } from "@mui/material";
 import { routes } from "@/routes";
 import { useRouter } from "next/navigation";
+import InfoChip from "@/components/InfoChip";
 
 interface Recipe {
   id: number;
@@ -61,14 +62,12 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
           {recipe.story}
         </Typography>
 
-        <Chip
-          label={recipe.prep_time}
-          sx={{ bgcolor: "primary.main", my: 2, mr: 1 }}
-        />
-        <Chip
-          label={recipe.difficulty}
-          sx={{ bgcolor: "primary.main", my: 2 }}
-        />
+        <div style={{ margin: "16px 0" }}>
+          <span style={{ marginRight: "8px" }}>
+            <InfoChip label={recipe.prep_time} />
+          </span>
+          <InfoChip label={recipe.difficulty} />
+        </div>
       </CardContent>
     </Card>
   );

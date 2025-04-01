@@ -6,7 +6,6 @@ import {
   Box,
   Card,
   Button,
-  Chip,
   IconButton,
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -14,6 +13,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import AppHeader from "@/components/AppHeader";
 import { useRecipes } from "@/context/RecipeContext";
+import InfoChip from "@/components/InfoChip";
 
 interface Recipe {
   id: number;
@@ -55,26 +55,10 @@ export function DirectionsView(props: any) {
 
           {/* Tags */}
           <Box sx={{ display: "flex", gap: 1, marginY: 2 }}>
-            <Chip
-              label={displayedRecipe.prep_time}
-              variant="outlined"
-              sx={{ bgcolor: "primary.main" }}
-            />
-            <Chip
-              label={displayedRecipe.category}
-              variant="outlined"
-              sx={{ bgcolor: "primary.main" }}
-            />
-            <Chip
-              label={displayedRecipe.cuisine}
-              variant="outlined"
-              sx={{ bgcolor: "primary.main" }}
-            />
-            <Chip
-              label={displayedRecipe.difficulty}
-              variant="outlined"
-              sx={{ bgcolor: "primary.main" }}
-            />
+            <InfoChip label={displayedRecipe.prep_time} />
+            <InfoChip label={displayedRecipe.category} />
+            <InfoChip label={displayedRecipe.cuisine} />
+            <InfoChip label={displayedRecipe.difficulty} />
           </Box>
 
           <Typography

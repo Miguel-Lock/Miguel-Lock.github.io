@@ -1,18 +1,12 @@
 "use client";
 
 import React from "react";
-import {
-  Typography,
-  Box,
-  Card,
-  CardContent,
-  CardMedia,
-  Chip,
-} from "@mui/material";
+import { Typography, Box, Card, CardContent, CardMedia } from "@mui/material";
 import { routes } from "@/routes";
 import { useRouter } from "next/navigation";
 import { useRecipes } from "@/context/RecipeContext";
 import { useEffect, useState } from "react";
+import InfoChip from "@/components/InfoChip";
 
 interface Recipe {
   id: number;
@@ -81,22 +75,10 @@ export function FeaturedRecipeCard() {
       <CardContent>
         <Typography variant="h5">{recipeOfTheDay.name}</Typography>
         <Box sx={{ display: "flex", gap: 1, marginTop: 1 }}>
-          <Chip
-            label={recipeOfTheDay.prep_time}
-            sx={{ bgcolor: "primary.main" }}
-          />
-          <Chip
-            label={recipeOfTheDay.category}
-            sx={{ bgcolor: "primary.main" }}
-          />
-          <Chip
-            label={recipeOfTheDay.cuisine}
-            sx={{ bgcolor: "primary.main" }}
-          />
-          <Chip
-            label={recipeOfTheDay.difficulty}
-            sx={{ bgcolor: "primary.main" }}
-          />
+          <InfoChip label={recipeOfTheDay.prep_time} />
+          <InfoChip label={recipeOfTheDay.category} />
+          <InfoChip label={recipeOfTheDay.cuisine} />
+          <InfoChip label={recipeOfTheDay.difficulty} />
         </Box>
 
         <Typography
