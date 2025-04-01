@@ -27,8 +27,6 @@ interface RecipeCardProps {
 export function RecipeCard({ recipe }: RecipeCardProps) {
   const router = useRouter();
 
-  const storyPreview = recipe.story.substring(0, 200) + "...";
-
   return (
     <Card
       sx={{
@@ -49,7 +47,20 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
       />
       <CardContent>
         <Typography variant="h6">{recipe.name}</Typography>
-        <Typography variant="body2">{storyPreview}</Typography>
+
+        <Typography
+          variant="body2"
+          sx={{
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            display: "-webkit-box",
+            WebkitLineClamp: "5",
+            WebkitBoxOrient: "vertical",
+          }}
+        >
+          {recipe.story}
+        </Typography>
+
         <Chip
           label={recipe.prep_time}
           sx={{ bgcolor: "primary.main", my: 2, mr: 1 }}

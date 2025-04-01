@@ -77,14 +77,24 @@ export function DirectionsView(props: any) {
             />
           </Box>
 
-          {/* Description */}
-          <Typography>
-            {readMore
-              ? displayedRecipe.story
-              : displayedRecipe.story.substring(0, 200) + "..."}
+          <Typography
+            sx={
+              !readMore
+                ? {
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    display: "-webkit-box",
+                    WebkitLineClamp: "3",
+                    WebkitBoxOrient: "vertical",
+                  }
+                : undefined
+            }
+          >
+            {displayedRecipe.story}
           </Typography>
           <Button
             variant="contained"
+            size="small"
             sx={{ marginY: 2 }}
             onClick={() => setReadMore(!readMore)}
           >

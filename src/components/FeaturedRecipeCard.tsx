@@ -78,8 +78,19 @@ export function FeaturedRecipeCard() {
             sx={{ bgcolor: "primary.main" }}
           />
         </Box>
-        <Typography variant="body2" sx={{ marginTop: "10px" }}>
-          {recipeOfTheDay?.story.substring(0, 200) + "..."}
+
+        <Typography
+          variant="body2"
+          sx={{
+            marginTop: "10px",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            display: "-webkit-box",
+            WebkitLineClamp: "3",
+            WebkitBoxOrient: "vertical",
+          }}
+        >
+          {recipeOfTheDay?.story}
         </Typography>
       </CardContent>
     </Card>
