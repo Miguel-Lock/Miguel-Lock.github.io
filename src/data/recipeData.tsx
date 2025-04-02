@@ -31,11 +31,6 @@ interface Recipe {
   story: string;
 }
 
-interface RecipeStory {
-  id: number;
-  story: string;
-}
-
 // Process and combine all recipes (similar to what RecipeContext does)
 export function getAllRecipes() {
   const allRecipes: Recipe[] = [];
