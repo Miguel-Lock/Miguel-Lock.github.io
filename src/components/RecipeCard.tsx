@@ -30,8 +30,6 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
   const router = useRouter();
   const theme = useTheme();
 
-  const storyPreview = recipe.story.substring(0, 200) + "...";
-
   return (
     <Card
       sx={{
