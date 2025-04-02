@@ -1,10 +1,19 @@
 "use client";
 
 import React from "react";
-import { Typography, Box, Card, CardContent, CardMedia } from "@mui/material";
+import {
+  Typography,
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  Chip,
+  IconButton,
+} from "@mui/material";
 import { routes } from "@/routes";
 import { useRouter } from "next/navigation";
 import { useRecipes } from "@/context/RecipeContext";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { useEffect, useState } from "react";
 import InfoChip from "@/components/InfoChip";
 
@@ -79,7 +88,18 @@ export function FeaturedRecipeCard() {
         alt={recipeOfTheDay.name}
       />
       <CardContent>
-        <Typography variant="h5">{recipeOfTheDay.name}</Typography>
+        <Typography variant="h5">
+          {recipeOfTheDay.name}
+          <IconButton
+            sx={{
+              color: "text.primary",
+              ml: 1,
+            }}
+          >
+            <StarBorderIcon />
+          </IconButton>
+        </Typography>
+
         <Box
           sx={{
             display: "flex",

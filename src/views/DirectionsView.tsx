@@ -8,11 +8,11 @@ import {
   Button,
   IconButton,
 } from "@mui/material";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import AppHeader from "@/components/AppHeader";
 import { useRecipes } from "@/context/RecipeContext";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
 import InfoChip from "@/components/InfoChip";
 
 interface Recipe {
@@ -50,7 +50,15 @@ export function DirectionsView(props: any) {
         {/* Left Section */}
         <Box flex={2} sx={{ paddingRight: 4 }}>
           <Typography variant="h3" fontWeight="bold">
-            {displayedRecipe.name} <FavoriteBorderIcon fontSize="small" />
+            {displayedRecipe.name}
+            <IconButton
+              sx={{
+                color: "text.primary",
+                ml: 1,
+              }}
+            >
+              <StarBorderIcon />
+            </IconButton>
           </Typography>
 
           {/* Tags */}
