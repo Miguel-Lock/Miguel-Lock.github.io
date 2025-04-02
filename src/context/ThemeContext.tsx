@@ -3,6 +3,7 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import { useMediaQuery } from "@mui/material";
 import { getTheme } from "@/theme/theme";
+//import { kMaxLength } from "buffer";
 
 type ThemeMode = "light" | "dark" | "system";
 
@@ -24,7 +25,15 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
 
   const themeMode =
     // mode === "system" ? (prefersDarkMode ? "dark" : "light") : mode;
-    mode === "system" ? (prefersDarkMode ? "light" : "light") : mode;
+    mode === "system" ? (prefersDarkMode ? "dark" : "light") : mode;
+
+  useEffect(() => {
+    if (typeof window != 'undefined') {
+    const storedTheme = localStorage.getItem('theme') as ThemeMode || "system";
+    setMode(storedTheme);
+    console.log("Stored color preferece: ", storedTheme);
+    }
+  }, []);
 
   // Get the theme configuration based on current theme mode
   const currentTheme = getTheme(themeMode);
@@ -46,6 +55,8 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
         newMode = "light";
         break;
     }
+    localStorage.setItem('theme', newMode);
+    console.log("Setting theme to: ", newMode);
     setMode(newMode);
   };
 
