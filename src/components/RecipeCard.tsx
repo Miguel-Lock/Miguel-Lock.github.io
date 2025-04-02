@@ -1,11 +1,19 @@
 "use client";
 
 import React from "react";
-import { Typography, Card, CardContent, CardMedia } from "@mui/material";
+import {
+  Typography,
+  Card,
+  CardContent,
+  CardMedia,
+  IconButton,
+  Box,
+} from "@mui/material";
 import { routes } from "@/routes";
 import { useRouter } from "next/navigation";
 import { useTheme } from "@mui/material/styles";
 import InfoChip from "@/components/InfoChip";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
 
 interface Recipe {
   id: number;
@@ -36,7 +44,6 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
         boxShadow: `0 0 4px ${theme.palette.secondary.main}`,
         borderRadius: "10px",
         cursor: "pointer",
-        minHeight: 400,
         transition: "transform 0.2s, box-shadow 0.2s",
         "&:hover": {
           transform: "translateY(-4px)",
@@ -53,7 +60,7 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
         image={"/image_files/" + recipe.images[0]}
         alt={recipe.name}
       />
-      <CardContent>
+      <CardContent sx={{ paddingBottom: "16px !important" }}>
         <Typography variant="h6">{recipe.name}</Typography>
 
         <Typography
@@ -69,12 +76,19 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
           {recipe.story}
         </Typography>
 
-        <div style={{ margin: "16px 0" }}>
-          <span style={{ marginRight: "8px" }}>
-            <InfoChip label={recipe.prep_time} />
-          </span>
-          <InfoChip label={recipe.difficulty} />
-        </div>
+        <Box
+          style={{
+            margin: "16px 0 0 0",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <InfoChip label={recipe.prep_time} />
+          <IconButton sx={{ color: "text.primary" }}>
+            <StarBorderIcon />
+          </IconButton>
+        </Box>
       </CardContent>
     </Card>
   );
