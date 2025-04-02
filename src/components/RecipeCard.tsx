@@ -1,9 +1,10 @@
 "use client";
 
 import React from "react";
-import { Typography, Card, CardContent, CardMedia, Chip } from "@mui/material";
+import { Typography, Card, CardContent, CardMedia } from "@mui/material";
 import { routes } from "@/routes";
 import { useRouter } from "next/navigation";
+import InfoChip from "@/components/InfoChip";
 
 interface Recipe {
   id: number;
@@ -27,8 +28,6 @@ interface RecipeCardProps {
 export function RecipeCard({ recipe }: RecipeCardProps) {
   const router = useRouter();
 
-  const storyPreview = recipe.story.substring(0, 200) + "...";
-
   return (
     <Card
       sx={{
@@ -49,15 +48,26 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
       />
       <CardContent>
         <Typography variant="h6">{recipe.name}</Typography>
-        <Typography variant="body2">{storyPreview}</Typography>
-        <Chip
-          label={recipe.prep_time}
-          sx={{ bgcolor: "primary.main", my: 2, mr: 1 }}
-        />
-        <Chip
-          label={recipe.difficulty}
-          sx={{ bgcolor: "primary.main", my: 2 }}
-        />
+
+        <Typography
+          variant="body2"
+          sx={{
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            display: "-webkit-box",
+            WebkitLineClamp: "5",
+            WebkitBoxOrient: "vertical",
+          }}
+        >
+          {recipe.story}
+        </Typography>
+
+        <div style={{ margin: "16px 0" }}>
+          <span style={{ marginRight: "8px" }}>
+            <InfoChip label={recipe.prep_time} />
+          </span>
+          <InfoChip label={recipe.difficulty} />
+        </div>
       </CardContent>
     </Card>
   );

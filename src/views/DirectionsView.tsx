@@ -6,7 +6,6 @@ import {
   Box,
   Card,
   Button,
-  Chip,
   IconButton,
 } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -14,6 +13,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import AppHeader from "@/components/AppHeader";
 import { useRecipes } from "@/context/RecipeContext";
+import InfoChip from "@/components/InfoChip";
 
 interface Recipe {
   id: number;
@@ -55,36 +55,30 @@ export function DirectionsView(props: any) {
 
           {/* Tags */}
           <Box sx={{ display: "flex", gap: 1, marginY: 2 }}>
-            <Chip
-              label={displayedRecipe.prep_time}
-              variant="outlined"
-              sx={{ bgcolor: "primary.main" }}
-            />
-            <Chip
-              label={displayedRecipe.category}
-              variant="outlined"
-              sx={{ bgcolor: "primary.main" }}
-            />
-            <Chip
-              label={displayedRecipe.cuisine}
-              variant="outlined"
-              sx={{ bgcolor: "primary.main" }}
-            />
-            <Chip
-              label={displayedRecipe.difficulty}
-              variant="outlined"
-              sx={{ bgcolor: "primary.main" }}
-            />
+            <InfoChip label={displayedRecipe.prep_time} />
+            <InfoChip label={displayedRecipe.category} />
+            <InfoChip label={displayedRecipe.cuisine} />
+            <InfoChip label={displayedRecipe.difficulty} />
           </Box>
 
-          {/* Description */}
-          <Typography>
-            {readMore
-              ? displayedRecipe.story
-              : displayedRecipe.story.substring(0, 200) + "..."}
+          <Typography
+            sx={
+              !readMore
+                ? {
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    display: "-webkit-box",
+                    WebkitLineClamp: "3",
+                    WebkitBoxOrient: "vertical",
+                  }
+                : undefined
+            }
+          >
+            {displayedRecipe.story}
           </Typography>
           <Button
             variant="contained"
+            size="small"
             sx={{ marginY: 2 }}
             onClick={() => setReadMore(!readMore)}
           >
