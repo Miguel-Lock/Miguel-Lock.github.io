@@ -148,7 +148,7 @@ export function RecipesView() {
               count={pageCount}
               size="large"
               color="primary"
-              variant="outlined"
+              shape="rounded"
               onChange={handlePageChange}
               sx={{ mt: 4 }}
             />
