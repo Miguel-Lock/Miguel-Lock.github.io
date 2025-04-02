@@ -14,7 +14,7 @@ const colors = {
     background: "#0a0a0a",
     paper: "#1e1e1e",
     text: "#ededed",
-    primary: "#161e7f",
+    primary: "#b07675",
     buttonText: "#ffffff",
     shadowColor: "rgba(255, 255, 255, 0.1)",
   },
