@@ -10,6 +10,7 @@ import {
   IconButton,
   InputAdornment,
   Container,
+  Pagination,
 } from "@mui/material";
 import AppHeader from "@/components/AppHeader";
 // import { useRouter } from "next/navigation";
@@ -17,6 +18,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import RecipeCard from "@/components/RecipeCard";
 import { useRecipes } from "@/context/RecipeContext";
+import { CenterFocusStrong } from "@mui/icons-material";
 
 interface Recipe {
   id: number;
@@ -42,6 +44,16 @@ export function RecipesView() {
   // const router = useRouter();
   const { recipes } = useRecipes();
   const [displayedRecipes, setDisplayedRecipes] = useState(recipes);
+  const [pageNumber, setPageNumber] = useState(1);
+
+  const recipesPerPage = 9;
+
+  const pageCount = Math.ceil(displayedRecipes.length / recipesPerPage); //divides and rounds up
+  const paginatedRecipes = displayedRecipes.filter(
+    (_, index) =>
+      index >= (pageNumber - 1) * recipesPerPage &&
+      index < pageNumber * recipesPerPage //pageNumber starts at 1, indexing starts at 0.
+  );
 
   //waits for .5s since the user stops typing to search
   const delayedSearch = (target: string) => {
@@ -67,6 +79,10 @@ export function RecipesView() {
         recipe.category?.toLowerCase().includes(target)
       );
     });
+  };
+
+  const handlePageChange = (_: any, page: number) => {
+    setPageNumber(page);
   };
 
   return (
@@ -120,12 +136,23 @@ export function RecipesView() {
 
           {/* Recipe Grid */}
           <Grid container spacing={3}>
-            {displayedRecipes.map((recipe, index) => (
+            {paginatedRecipes.map((recipe, index) => (
               <Grid item xs={12} sm={6} md={4} key={index}>
                 <RecipeCard recipe={recipe} />
               </Grid>
             ))}
           </Grid>
+
+          <Box display="flex" justifyContent="center" alignItems="center">
+            <Pagination
+              count={pageCount}
+              size="large"
+              color="primary"
+              variant="outlined"
+              onChange={handlePageChange}
+              sx={{ mt: 4 }}
+            />
+          </Box>
         </Box>
       </Container>
     </Box>
