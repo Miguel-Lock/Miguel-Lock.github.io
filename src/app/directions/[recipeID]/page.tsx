@@ -1,22 +1,20 @@
-import DirectionsView from "@/views/DirectionsView";
-import { allRecipes } from "@/data/recipeData";
+import { DirectionsView } from "@/views";
+
+export async function generateStaticParams() {
+  // Generate an array of numbers from 1 to 80
+  return Array.from({ length: 80 }, (_, i) => ({
+    recipeID: (i + 1).toString(),
+  }));
+}
 
 export default async function DirectionsPage({
   params,
 }: {
-  params: { recipeID: string };
+  params: Promise<{ recipeID: string }>;
 }) {
-  // Ensure params is awaited
-  const { recipeID } = await params;
+  // Await the params promise
+  const resolvedParams = await params;
+  const recipeID = Math.min(Math.max(Number(resolvedParams.recipeID), 1), 80);
 
-  const parsedRecipeID = parseInt(recipeID, 10);
-
-  return <DirectionsView recipeID={parsedRecipeID} />;
-}
-
-// This tells Next.js which routes to generate at build time
-export function generateStaticParams() {
-  return allRecipes.map((recipe) => ({
-    recipeID: recipe.id.toString(),
-  }));
+  return <DirectionsView recipeID={recipeID} />;
 }
