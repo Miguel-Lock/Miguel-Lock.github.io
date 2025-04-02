@@ -1,4 +1,3 @@
-"use client";
 import DirectionsView from "@/views/DirectionsView";
 import { allRecipes } from "@/data/recipeData";
 
