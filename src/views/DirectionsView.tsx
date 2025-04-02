@@ -1,42 +1,50 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import {
   Typography,
   Container,
   Box,
   Card,
   Button,
-  Chip,
   IconButton,
+  CardMedia,
 } from "@mui/material";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import AppHeader from "@/components/AppHeader";
+import { useRecipes } from "@/context/RecipeContext";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+import InfoChip from "@/components/InfoChip";
 
-const sampleRecipe = {
-  title: "Caprese Skewers",
-  time: "10 Min",
-  category: "Italian",
-  type: "Appetizer",
-  difficulty: "Easy",
-  description:
-    "Caprese Skewers are one of my favorite appetizers because they combine the classic flavors of Italy with a modern, playful presentation...",
-  ingredients: [
-    "Mozerella Balls",
-    "Basil",
-    "Small Tomatoes",
-    "Balsamic Vinegar",
-  ],
-  steps: [
-    "On small skewers, thread a cherry tomato, a basil leaf, and a mozzarella ball.",
-    "Repeat until all ingredients are used.",
-    "Drizzle the skewers with olive oil and balsamic glaze.",
-    "Serve immediately.",
-  ],
-  image: "Caprese-Skewers.png", // Replace with actual image
-};
+interface Recipe {
+  id: number;
+  name: string;
+  prep_time: string;
+  category: string;
+  ingredients: string[];
+  dietary: string[];
+  season: string;
+  cuisine: string;
+  difficulty: string;
+  images: string[];
+  steps: string[];
+  story: string;
+}
 
-export function DirectionsView() {
+interface DirectionsViewProps {
+  recipeID: number;
+}
+
+export function DirectionsView(props: DirectionsViewProps) {
+  const { recipes } = useRecipes();
+
+  const displayedRecipe: Recipe = recipes.filter(
+    (recipe) => recipe.id === props.recipeID
+  )[0];
+
+  const [image, setImage] = useState(0);
+  const [readMore, setReadMore] = useState(false);
+
   return (
     <Box>
       {/* Header */}
@@ -47,37 +55,47 @@ export function DirectionsView() {
         {/* Left Section */}
         <Box flex={2} sx={{ paddingRight: 4 }}>
           <Typography variant="h3" fontWeight="bold">
-            {sampleRecipe.title} <FavoriteBorderIcon fontSize="small" />
+            {displayedRecipe.name}
+            <IconButton
+              sx={{
+                color: "text.primary",
+                ml: 1,
+              }}
+            >
+              <StarBorderIcon />
+            </IconButton>
           </Typography>
 
           {/* Tags */}
           <Box sx={{ display: "flex", gap: 1, marginY: 2 }}>
-            <Chip
-              label={sampleRecipe.time}
-              variant="outlined"
-              sx={{ bgcolor: "primary.main" }}
-            />
-            <Chip
-              label={sampleRecipe.category}
-              variant="outlined"
-              sx={{ bgcolor: "primary.main" }}
-            />
-            <Chip
-              label={sampleRecipe.type}
-              variant="outlined"
-              sx={{ bgcolor: "primary.main" }}
-            />
-            <Chip
-              label={sampleRecipe.difficulty}
-              variant="outlined"
-              sx={{ bgcolor: "primary.main" }}
-            />
+            <InfoChip label={displayedRecipe.prep_time} />
+            <InfoChip label={displayedRecipe.category} />
+            <InfoChip label={displayedRecipe.cuisine} />
+            <InfoChip label={displayedRecipe.difficulty} />
           </Box>
 
-          {/* Description */}
-          <Typography>{sampleRecipe.description}</Typography>
-          <Button variant="contained" sx={{ marginY: 2 }}>
-            Read More
+          <Typography
+            sx={
+              !readMore
+                ? {
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    display: "-webkit-box",
+                    WebkitLineClamp: "3",
+                    WebkitBoxOrient: "vertical",
+                  }
+                : undefined
+            }
+          >
+            {displayedRecipe.story}
+          </Typography>
+          <Button
+            variant="contained"
+            size="small"
+            sx={{ marginY: 2 }}
+            onClick={() => setReadMore(!readMore)}
+          >
+            {readMore ? "READ LESS" : "READ MORE"}
           </Button>
 
           {/* Directions */}
@@ -85,7 +103,7 @@ export function DirectionsView() {
             Directions:
           </Typography>
           <Typography component="ol">
-            {sampleRecipe.steps.map((step, index) => (
+            {displayedRecipe.steps.map((step, index) => (
               <li key={"step-" + index}>{step}</li>
             ))}
           </Typography>
@@ -97,19 +115,31 @@ export function DirectionsView() {
           sx={{ textAlign: "center", bgcolor: "primary.main", padding: 2 }}
         >
           <Box sx={{ flexDirection: "row", gap: 2 }}>
-            <IconButton>
+            <IconButton
+              onClick={() =>
+                setImage(
+                  (image + displayedRecipe.images.length - 1) %
+                    displayedRecipe.images.length
+                )
+              }
+            >
               <ArrowBackIosIcon />
             </IconButton>
 
             <Card sx={{ maxWidth: 345, margin: "auto" }}>
-              <img
-                src={sampleRecipe.image}
-                alt="Caprese Skewers"
-                style={{ width: "100%" }}
+              <CardMedia
+                component="img"
+                image={"/image_files/" + displayedRecipe.images[image]}
+                alt={displayedRecipe.name}
+                sx={{ objectFit: "cover", maxWidth: "345px" }}
               />
             </Card>
 
-            <IconButton>
+            <IconButton
+              onClick={() =>
+                setImage((image + 1) % displayedRecipe.images.length)
+              }
+            >
               <ArrowForwardIosIcon />
             </IconButton>
           </Box>
@@ -118,7 +148,7 @@ export function DirectionsView() {
             Ingredients:
           </Typography>
           <ul>
-            {sampleRecipe.ingredients.map((el, index) => (
+            {displayedRecipe.ingredients.map((el, index) => (
               <li key={"ingredient-" + index}>{el}</li>
             ))}
           </ul>

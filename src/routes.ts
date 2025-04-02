@@ -1,7 +1,7 @@
 type AppRoutes = {
   home: string;
   recipes: string;
-  directions: string;
+  directions: (recipe: number) => string;
   // long term: directions needs to be a dynamic link.
   // directions: (id: string) => string;
 };
@@ -9,6 +9,5 @@ type AppRoutes = {
 export const routes: AppRoutes = {
   home: "/",
   recipes: "/recipes",
-  directions: "/directions",
-  // directions: (id) => `/directions/${id}`,
+  directions: (recipe: number) => "/directions/" + recipe,
 };

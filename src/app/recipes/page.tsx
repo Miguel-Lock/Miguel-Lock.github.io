@@ -1,7 +1,7 @@
 import { RecipesView } from "@/views";
 
 export const metadata = {
-  title: "Cookbook - Recipes",
+  title: "Lab to Ladle",
   description: "Your cookbook recipes page",
 };
 

@@ -2,12 +2,16 @@
 
 import React from "react";
 import { Typography, Box, Container } from "@mui/material";
+//import { useTheme } from "@mui/material/styles";
 import AppHeader from "@/components/AppHeader";
 import FeaturedRecipeCard from "@/components/FeaturedRecipeCard";
+import HomepageImage from "@/components/HomepageImage";
+//import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 // import { useRouter } from "next/navigation";
 
 export function HomeView() {
   // const router = useRouter();
+  //const theme = useTheme();
 
   return (
     <Box>
@@ -51,6 +55,26 @@ export function HomeView() {
             But cooking meth? That&apos;s where the real science was. Who knew
             that mixing chemicals could lead to such an epiphany about food?
           </Typography>
+
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: { sm: "row", xs: "column" },
+              justifyContent: "space-between",
+            }}
+          >
+            <HomepageImage
+              source="/our_images/randomwhitedude.png"
+              target="https://www.ebay.com/itm/314310656876"
+              bottom_text="Me cooking meth"
+            />
+
+            <HomepageImage
+              source="/our_images/mymeth.png"
+              target="https://www.governing.com/archive/gov-meth-lab-cleanup-program-contains-costs-for-tennessee.html"
+              bottom_text="My kitchen (at the time)"
+            />
+          </Box>
 
           <Typography variant="subtitle1" sx={{ mb: 2 }}>
             One day, as I was stirring up a particularly volatile batch
@@ -100,6 +124,26 @@ export function HomeView() {
             when the only thing I was serving was a well-seasoned roast chicken
             and some killer mashed potatoes.
           </Typography>
+
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: { sm: "row", xs: "column" },
+              justifyContent: "space-between",
+            }}
+          >
+            <HomepageImage
+              source="/our_images/mymankeith.jpg"
+              target="https://ie.pinterest.com/pin/829014243893651377/"
+              bottom_text="Me cooking filet mignon"
+            />
+
+            <HomepageImage
+              source="/our_images/mykitchennow.png"
+              target="https://aquakitchen.com/black-granite-countertops-sophistication-kitchen/"
+              bottom_text="My kitchen now"
+            />
+          </Box>
 
           <Typography variant="subtitle1" sx={{ mb: 2 }}>
             Turns out, the only thing that really gets you high in life is the
