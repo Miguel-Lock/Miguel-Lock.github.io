@@ -31,15 +31,11 @@ interface Recipe {
   story: string;
 }
 
-interface DirectionsViewProps {
-  recipeID: number;
-}
-
-export function DirectionsView(props: DirectionsViewProps) {
+export function DirectionsView({ recipeID }: { recipeID: number }) {
   const { recipes } = useRecipes();
 
   const displayedRecipe: Recipe = recipes.filter(
-    (recipe) => recipe.id === props.recipeID
+    (recipe) => recipe.id === recipeID
   )[0];
 
   const [image, setImage] = useState(0);
