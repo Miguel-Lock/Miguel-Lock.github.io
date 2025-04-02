@@ -8,6 +8,7 @@ const colors = {
     text: "#171717",
     primary: "#f09595",
     buttonText: "#0a0a0a",
+    shadowColor: "rgba(0, 0, 0, 0.5)",
   },
   dark: {
     background: "#0a0a0a",
@@ -15,6 +16,7 @@ const colors = {
     text: "#ededed",
     primary: "#161e7f",
     buttonText: "#ffffff",
+    shadowColor: "rgba(255, 255, 255, 0.1)",
   },
 };
 
@@ -26,6 +28,9 @@ export const getTheme = (mode: "light" | "dark") => {
     palette: {
       primary: {
         main: themeColors.primary,
+      },
+      secondary: {
+        main: themeColors.shadowColor,
       },
       // secondary: {
       //   main: themeColors.secondary,

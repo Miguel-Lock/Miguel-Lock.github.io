@@ -14,6 +14,7 @@ import { routes } from "@/routes";
 import { useRouter } from "next/navigation";
 import { useRecipes } from "@/context/RecipeContext";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
+import { useTheme } from "@mui/material/styles";
 import { useEffect, useState } from "react";
 import InfoChip from "@/components/InfoChip";
 
@@ -34,6 +35,7 @@ interface Recipe {
 
 export function FeaturedRecipeCard() {
   const router = useRouter();
+  const theme = useTheme();
   const { getRecipeById, recipes } = useRecipes();
   const [recipeOfTheDay, setRecipeOfTheDay] = useState<Recipe | null>(null);
 
@@ -69,8 +71,14 @@ export function FeaturedRecipeCard() {
         flexDirection: { xs: "column", sm: "row" },
         marginTop: "20px",
         padding: "16px",
-        boxShadow: 3,
+        boxShadow: `0 0 4px ${theme.palette.secondary.main}`,
+        borderRadius: "10px",
         cursor: "pointer",
+        transition: "transform 0.2s, box-shadow 0.2s",
+        "&:hover": {
+          transform: "translateY(-4px)",
+          boxShadow: `0 0 15px ${theme.palette.secondary.main}`,
+        },
       }}
       onClick={() => {
         router.push(routes.directions(recipeOfTheDay.id));

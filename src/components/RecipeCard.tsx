@@ -4,6 +4,7 @@ import React from "react";
 import { Typography, Card, CardContent, CardMedia } from "@mui/material";
 import { routes } from "@/routes";
 import { useRouter } from "next/navigation";
+import { useTheme } from "@mui/material/styles";
 import InfoChip from "@/components/InfoChip";
 
 interface Recipe {
@@ -27,14 +28,22 @@ interface RecipeCardProps {
 
 export function RecipeCard({ recipe }: RecipeCardProps) {
   const router = useRouter();
+  const theme = useTheme();
+
+  const storyPreview = recipe.story.substring(0, 200) + "...";
 
   return (
     <Card
       sx={{
-        boxShadow: 2,
+        boxShadow: `0 0 4px ${theme.palette.secondary.main}`,
         borderRadius: "10px",
         cursor: "pointer",
         minHeight: 400,
+        transition: "transform 0.2s, box-shadow 0.2s",
+        "&:hover": {
+          transform: "translateY(-4px)",
+          boxShadow: `0 0 15px ${theme.palette.secondary.main}`,
+        },
       }}
       onClick={() => {
         router.push(routes.directions(recipe.id));
