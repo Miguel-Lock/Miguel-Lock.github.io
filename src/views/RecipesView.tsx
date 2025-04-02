@@ -18,7 +18,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import RecipeCard from "@/components/RecipeCard";
 import { useRecipes } from "@/context/RecipeContext";
-import { CenterFocusStrong } from "@mui/icons-material";
 
 interface Recipe {
   id: number;
@@ -79,10 +78,6 @@ export function RecipesView() {
         recipe.category?.toLowerCase().includes(target)
       );
     });
-  };
-
-  const handlePageChange = (_: any, page: number) => {
-    setPageNumber(page);
   };
 
   return (
@@ -155,7 +150,9 @@ export function RecipesView() {
               size="large"
               color="primary"
               shape="rounded"
-              onChange={handlePageChange}
+              onChange={(e: React.ChangeEvent<unknown>, page: number) =>
+                setPageNumber(page)
+              }
               sx={{ mt: 4 }}
             />
           </Box>
