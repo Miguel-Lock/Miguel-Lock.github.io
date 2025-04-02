@@ -1,7 +1,7 @@
 import { HomeView } from "@/views";
 
 export const metadata = {
-  title: "Cookbook - Home",
+  title: "Lab to Ladle",
   description: "Your cookbook home page",
 };
 

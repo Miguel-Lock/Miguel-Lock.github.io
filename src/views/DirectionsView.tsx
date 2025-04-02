@@ -7,12 +7,13 @@ import {
   Card,
   Button,
   IconButton,
+  CardMedia,
 } from "@mui/material";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import AppHeader from "@/components/AppHeader";
 import { useRecipes } from "@/context/RecipeContext";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
 import InfoChip from "@/components/InfoChip";
 
 interface Recipe {
@@ -30,7 +31,11 @@ interface Recipe {
   story: string;
 }
 
-export function DirectionsView(props: any) {
+interface DirectionsViewProps {
+  recipeID: number;
+}
+
+export function DirectionsView(props: DirectionsViewProps) {
   const { recipes } = useRecipes();
 
   const displayedRecipe: Recipe = recipes.filter(
@@ -50,7 +55,15 @@ export function DirectionsView(props: any) {
         {/* Left Section */}
         <Box flex={2} sx={{ paddingRight: 4 }}>
           <Typography variant="h3" fontWeight="bold">
-            {displayedRecipe.name} <FavoriteBorderIcon fontSize="small" />
+            {displayedRecipe.name}
+            <IconButton
+              sx={{
+                color: "text.primary",
+                ml: 1,
+              }}
+            >
+              <StarBorderIcon />
+            </IconButton>
           </Typography>
 
           {/* Tags */}
@@ -114,10 +127,11 @@ export function DirectionsView(props: any) {
             </IconButton>
 
             <Card sx={{ maxWidth: 345, margin: "auto" }}>
-              <img
-                src={"/image_files/" + displayedRecipe.images[image]}
-                alt="Caprese Skewers"
-                style={{ width: "100%" }}
+              <CardMedia
+                component="img"
+                image={"/image_files/" + displayedRecipe.images[image]}
+                alt={displayedRecipe.name}
+                sx={{ objectFit: "cover", maxWidth: "345px" }}
               />
             </Card>
 

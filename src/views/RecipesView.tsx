@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
+// import React, { useContext } from "react";
 import {
   Typography,
   Box,
@@ -76,38 +77,45 @@ export function RecipesView() {
       <Container>
         {/* All Recipes Section */}
         <Box sx={{ padding: "20px" }}>
-          <Typography variant="h4">All Recipes</Typography>
-
-          {/* Search Bar */}
           <Box
             sx={{
               display: "flex",
+              flexWrap: "wrap",
+              gap: 2,
               justifyContent: "space-between",
-              marginY: "20px",
+              marginBottom: 3,
+              marginTop: 1,
             }}
           >
-            <TextField
-              placeholder="Search Recipes"
-              variant="outlined"
-              sx={{ width: "300px" }}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <IconButton>
-                      <FilterListIcon />
-                    </IconButton>
-                  </InputAdornment>
-                ),
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <SearchIcon />
-                  </InputAdornment>
-                ),
-              }}
-              onChange={(e) => {
-                delayedSearch(e.target.value);
-              }}
-            />
+            <Typography variant="h3">All Recipes</Typography>
+
+            {/* Search Bar */}
+            <Box>
+              <TextField
+                placeholder="Search Recipes"
+                variant="outlined"
+                sx={{ width: "300px" }}
+                slotProps={{
+                  input: {
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <IconButton>
+                          <FilterListIcon />
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <SearchIcon />
+                      </InputAdornment>
+                    ),
+                  },
+                }}
+                onChange={(e) => {
+                  delayedSearch(e.target.value);
+                }}
+              />
+            </Box>
           </Box>
 
           {/* Recipe Grid */}
