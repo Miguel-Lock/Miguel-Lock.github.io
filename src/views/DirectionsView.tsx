@@ -7,6 +7,7 @@ import {
   Card,
   Button,
   IconButton,
+  CardMedia,
 } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -30,7 +31,11 @@ interface Recipe {
   story: string;
 }
 
-export function DirectionsView(props: any) {
+interface DirectionsViewProps {
+  recipeID: number;
+}
+
+export function DirectionsView(props: DirectionsViewProps) {
   const { recipes } = useRecipes();
 
   const displayedRecipe: Recipe = recipes.filter(
@@ -122,10 +127,11 @@ export function DirectionsView(props: any) {
             </IconButton>
 
             <Card sx={{ maxWidth: 345, margin: "auto" }}>
-              <img
-                src={"/image_files/" + displayedRecipe.images[image]}
-                alt="Caprese Skewers"
-                style={{ width: "100%" }}
+              <CardMedia
+                component="img"
+                image={"/image_files/" + displayedRecipe.images[image]}
+                alt={displayedRecipe.name}
+                sx={{ objectFit: "cover", maxWidth: "345px" }}
               />
             </Card>
 
