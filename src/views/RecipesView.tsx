@@ -100,13 +100,19 @@ export function RecipesView() {
                     startAdornment: (
                       <InputAdornment position="start">
                         <IconButton>
-                          <FilterListIcon />
+                          <FilterListIcon
+                            sx={{
+                              color: (theme) => theme.palette.text.primary,
+                            }}
+                          />
                         </IconButton>
                       </InputAdornment>
                     ),
                     endAdornment: (
                       <InputAdornment position="end">
-                        <SearchIcon />
+                        <SearchIcon
+                          sx={{ color: (theme) => theme.palette.text.primary }}
+                        />
                       </InputAdornment>
                     ),
                   },
