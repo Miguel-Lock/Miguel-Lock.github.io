@@ -14,9 +14,9 @@ const colors = {
     background: "#0a0a0a",
     paper: "#1e1e1e",
     text: "#ededed",
-    primary: "#161e7f",
+    primary: "#b07675",
     buttonText: "#ffffff",
-    shadowColor: "rgba(255, 255, 255, 0.1)",
+    shadowColor: "rgb(255, 255, 255, .1)",
   },
 };
 
@@ -42,9 +42,34 @@ export const getTheme = (mode: "light" | "dark") => {
       text: {
         primary: themeColors.text,
       },
+      action: {
+        disabled: themeColors.text,
+      },
     },
     typography: {
       fontFamily: "Arial, Helvetica, sans-serif",
+    },
+    components: {
+      MuiOutlinedInput: {
+        styleOverrides: {
+          root: {
+            "&:hover .MuiOutlinedInput-notchedOutline": {
+              borderColor: themeColors.text, // Use text color on hover
+              opacity: 0.8, // Make more visible
+            },
+            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+              borderColor: themeColors.primary, // Use primary color when focused
+              borderWidth: "2px", // Thicker border when focused
+            },
+          },
+          notchedOutline: {
+            borderColor:
+              mode === "dark"
+                ? "rgba(255, 255, 255, 0.5)" // More visible in dark mode
+                : "rgba(0, 0, 0, 0.23)", // Default light mode
+          },
+        },
+      },
     },
   });
 };

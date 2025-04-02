@@ -1,17 +1,17 @@
 "use client";
 
 import React from "react";
-import { Typography, Box, Container, IconButton } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+import { Typography, Box, Container } from "@mui/material";
+//import { useTheme } from "@mui/material/styles";
 import AppHeader from "@/components/AppHeader";
 import FeaturedRecipeCard from "@/components/FeaturedRecipeCard";
 import HomepageImage from "@/components/HomepageImage";
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+//import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 // import { useRouter } from "next/navigation";
 
 export function HomeView() {
   // const router = useRouter();
-  const theme = useTheme();
+  //const theme = useTheme();
 
   return (
     <Box>
