@@ -1,22 +1,10 @@
 "use client";
 
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  IconButton,
-  Divider,
-} from "@mui/material";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
+import { AppBar, Toolbar, Typography, Button, Divider } from "@mui/material";
 import { routes } from "@/routes";
 import Link from "next/link";
-import { useTheme } from "@/context/ThemeContext";
 
 export function AppHeader() {
-  const { themeMode, toggleMode } = useTheme();
-
   return (
     <AppBar position="static" sx={{ bgcolor: "primary", padding: "0px" }}>
       <Toolbar sx={{ padding: 0 }}>
@@ -70,11 +58,6 @@ export function AppHeader() {
         >
           Recipes
         </Button>
-        
-        <IconButton color="inherit" onClick={toggleMode}>
-          {themeMode === "dark" ? <LightModeIcon /> : <DarkModeIcon />}
-        </IconButton>
-        
       </Toolbar>
     </AppBar>
   );
