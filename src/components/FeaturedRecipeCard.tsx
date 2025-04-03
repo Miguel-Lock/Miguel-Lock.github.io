@@ -14,9 +14,11 @@ import { routes } from "@/routes";
 import { useRouter } from "next/navigation";
 import { useRecipes } from "@/context/RecipeContext";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
+import StarIcon from "@mui/icons-material/Star";
 import { useTheme } from "@mui/material/styles";
 import { useEffect, useState } from "react";
 import InfoChip from "@/components/InfoChip";
+import { useFavorites } from "@/context/FavoritesContext";
 
 interface Recipe {
   id: number;
@@ -36,6 +38,7 @@ interface Recipe {
 export function FeaturedRecipeCard() {
   const router = useRouter();
   const theme = useTheme();
+  const { toggleFavorite, isFavorite } = useFavorites();
   const { getRecipeById, recipes } = useRecipes();
   const [recipeOfTheDay, setRecipeOfTheDay] = useState<Recipe | null>(null);
 
@@ -103,8 +106,13 @@ export function FeaturedRecipeCard() {
               color: "text.primary",
               ml: 1,
             }}
+            onClick={(e: React.MouseEvent<unknown>) => {
+              e.preventDefault();
+              e.stopPropagation();
+              toggleFavorite(recipeOfTheDay.id);
+            }}
           >
-            <StarBorderIcon />
+            {isFavorite(recipeOfTheDay.id) ? <StarIcon /> : <StarBorderIcon />}
           </IconButton>
         </Typography>
 

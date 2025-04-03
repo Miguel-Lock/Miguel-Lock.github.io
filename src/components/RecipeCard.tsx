@@ -14,6 +14,8 @@ import { useRouter } from "next/navigation";
 import { useTheme } from "@mui/material/styles";
 import InfoChip from "@/components/InfoChip";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
+import StarIcon from "@mui/icons-material/Star";
+import { useFavorites } from "@/context/FavoritesContext";
 
 interface Recipe {
   id: number;
@@ -37,6 +39,7 @@ interface RecipeCardProps {
 export function RecipeCard({ recipe }: RecipeCardProps) {
   const router = useRouter();
   const theme = useTheme();
+  const { toggleFavorite, isFavorite } = useFavorites();
 
   return (
     <Card
@@ -85,8 +88,15 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
           }}
         >
           <InfoChip label={recipe.prep_time} />
-          <IconButton sx={{ color: "text.primary" }}>
-            <StarBorderIcon />
+          <IconButton
+            sx={{ color: "text.primary" }}
+            onClick={(e: React.MouseEvent<unknown>) => {
+              e.preventDefault();
+              e.stopPropagation();
+              toggleFavorite(recipe.id);
+            }}
+          >
+            {isFavorite(recipe.id) ? <StarIcon /> : <StarBorderIcon />}
           </IconButton>
         </Box>
       </CardContent>
