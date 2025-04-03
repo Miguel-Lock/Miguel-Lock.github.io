@@ -14,7 +14,9 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import AppHeader from "@/components/AppHeader";
 import { useRecipes } from "@/context/RecipeContext";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
+import StarIcon from "@mui/icons-material/Star";
 import InfoChip from "@/components/InfoChip";
+import { useFavorites } from "@/context/FavoritesContext";
 
 interface Recipe {
   id: number;
@@ -33,7 +35,7 @@ interface Recipe {
 
 export function DirectionsView({ recipeID }: { recipeID: number }) {
   const { recipes } = useRecipes();
-
+  const { toggleFavorite, isFavorite } = useFavorites();
   const displayedRecipe: Recipe = recipes.filter(
     (recipe) => recipe.id === recipeID
   )[0];
@@ -57,8 +59,9 @@ export function DirectionsView({ recipeID }: { recipeID: number }) {
                 color: "text.primary",
                 ml: 1,
               }}
+              onClick={() => toggleFavorite(recipeID)}
             >
-              <StarBorderIcon />
+              {isFavorite(recipeID) ? <StarIcon /> : <StarBorderIcon />}
             </IconButton>
           </Typography>
 
