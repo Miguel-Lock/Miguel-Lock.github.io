@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ReactEventHandler } from "react";
+import React from "react";
 import {
   Typography,
   Box,

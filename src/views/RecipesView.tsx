@@ -53,7 +53,10 @@ export function RecipesView() {
 
   const recipesPerPage = 9;
 
-  const pageCount = Math.ceil(searchedRecipes.length / recipesPerPage); //divides and rounds up
+  const pageCount = Math.max(
+    Math.ceil(searchedRecipes.length / recipesPerPage),
+    1
+  ); //divides and rounds up
   const paginatedRecipes = searchedRecipes.filter(
     (_, index) =>
       index >= (pageNumber - 1) * recipesPerPage &&
@@ -69,8 +72,11 @@ export function RecipesView() {
     );
   };
 
-  const search = (target: string, recipes: Recipe[]) => {
-    console.log("searching", displayFavorites);
+  function updateSearch(recipes: Recipe[]) {
+    return search(searchTarget, recipes);
+  }
+
+  function search(target: string, recipes: Recipe[]) {
     target = target.toLowerCase();
     //search by the name, prep_time, cuisine, dietary[], seasonal, category, and ingredients[]
 
@@ -86,19 +92,21 @@ export function RecipesView() {
         (isFavorite(recipe.id) || !displayFavorites) //will display only favorites if set to that
       );
     });
-  };
+  }
 
   useEffect(() => {
-    setSearchedRecipes(search(searchTarget, recipes));
+    setSearchedRecipes(updateSearch(recipes));
   }, [displayFavorites]);
 
   const toggleDisplayFavorites = (
     e: React.MouseEvent<unknown>,
     selected: string
   ) => {
-    selected === null
-      ? setDisplayFavorites(!displayFavorites)
-      : setDisplayFavorites(selected === "fav");
+    if (selected === null) {
+      setDisplayFavorites(!displayFavorites);
+    } else {
+      setDisplayFavorites(selected === "fav");
+    }
   };
 
   return (
@@ -175,6 +183,12 @@ export function RecipesView() {
 
           {/* Recipe Grid */}
           <Grid container spacing={3}>
+            {paginatedRecipes.length === 0 ? (
+              <Typography variant="h6" sx={{ mt: 2, mb: 3, ml: 3, mr: 3 }}>
+                No results, try broadening your search
+              </Typography>
+            ) : null}
+
             {paginatedRecipes.map((recipe, index) => (
               <Grid item xs={12} sm={6} md={4} key={index}>
                 <RecipeCard recipe={recipe} />

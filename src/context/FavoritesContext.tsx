@@ -16,13 +16,13 @@ interface FavortesContextType {
 
 const FavoritesContext = createContext<FavortesContextType>({
   favorites: [],
-  toggleFavorite: (id: number) => undefined,
-  isFavorite: (id: number) => false,
+  toggleFavorite: () => undefined,
+  isFavorite: () => false,
 });
 
 export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
   const emptyNumberArray: number[] = [];
-  let [favorites, setFavorites] = useState(emptyNumberArray);
+  const [favorites, setFavorites] = useState(emptyNumberArray);
 
   useEffect(() => {
     //load from storage on window load
@@ -38,9 +38,11 @@ export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
   }, [favorites]);
 
   const toggleFavorite = (toggledID: number) => {
-    favorites.indexOf(toggledID) === -1
-      ? setFavorites([...favorites, toggledID])
-      : setFavorites(favorites.filter((id) => id !== toggledID));
+    if (favorites.indexOf(toggledID) === -1) {
+      setFavorites([...favorites, toggledID]);
+    } else {
+      setFavorites(favorites.filter((id) => id !== toggledID));
+    }
   };
 
   const isFavorite = (recipeID: number) => {

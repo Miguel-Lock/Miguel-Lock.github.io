@@ -70,6 +70,36 @@ export const getTheme = (mode: "light" | "dark") => {
           },
         },
       },
+      MuiToggleButtonGroup: {
+        styleOverrides: {
+          root: {
+            backgroundColor: themeColors.paper,
+            border: `1px solid ${themeColors.primary}`,
+          },
+        },
+      },
+      MuiToggleButton: {
+        styleOverrides: {
+          root: {
+            color: themeColors.text,
+            backgroundColor: themeColors.background,
+            "&.Mui-selected": {
+              backgroundColor: themeColors.primary,
+              color: themeColors.buttonText,
+              "&:hover": {
+                backgroundColor: themeColors.primary,
+                opacity: 0.9,
+              },
+            },
+            "&:hover": {
+              backgroundColor:
+                mode === "dark"
+                  ? "rgba(255, 255, 255, 0.08)"
+                  : "rgba(0, 0, 0, 0.04)",
+            },
+          },
+        },
+      },
     },
   });
 };
