@@ -79,7 +79,7 @@ export function RecipesView() {
   function search(target: string, recipes: Recipe[]) {
     target = target.toLowerCase();
     //search by the name, prep_time, cuisine, dietary[], seasonal, category, and ingredients[]
-
+    setPageNumber(1);
     return recipes.filter((recipe) => {
       return (
         (recipe.name?.toLowerCase().includes(target) ||
@@ -202,9 +202,10 @@ export function RecipesView() {
               size="large"
               color="primary"
               shape="rounded"
-              onChange={(e: React.ChangeEvent<unknown>, page: number) =>
-                setPageNumber(page)
-              }
+              page={pageNumber}
+              onChange={(e: React.ChangeEvent<unknown>, page: number) => {
+                setPageNumber(page);
+              }}
               sx={{ mt: 4 }}
             />
           </Box>
