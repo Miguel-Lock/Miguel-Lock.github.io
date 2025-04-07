@@ -11,6 +11,7 @@ import {
   Select,
   SelectChangeEvent,
   Autocomplete,
+  Box,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import FilterListIcon from "@mui/icons-material/FilterList";
@@ -142,7 +143,7 @@ export const SearchBar: React.FC<SearchProps> = ({
           },
         }}
       >
-        <MenuItem sx={{ display: "flex", flexDirection: "column" }}>
+        <Box sx={{ display: "flex", flexDirection: "column", px: 2 }}>
           <Typography>Max Cooking Time:</Typography>
           <Slider
             aria-label="Cooking Time"
@@ -154,13 +155,11 @@ export const SearchBar: React.FC<SearchProps> = ({
             marks
             min={5}
             max={60}
-            sx={{ mt: 3, mb: 1 }}
+            sx={{ mt: 1, mb: 2 }}
             onChange={(_: Event, value) =>
               setSearchQuery({ ...query, maxTime: value as number })
             }
           />
-        </MenuItem>
-        <MenuItem>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">
               Max Difficulty
@@ -174,14 +173,13 @@ export const SearchBar: React.FC<SearchProps> = ({
                   maxDifficulty: e.target.value as "hard" | "moderate" | "easy",
                 })
               }
+              sx={{ mb: 2 }}
             >
               <MenuItem value={"hard"}>Hard</MenuItem>
               <MenuItem value={"moderate"}>Moderate</MenuItem>
               <MenuItem value={"easy"}>Easy</MenuItem>
             </Select>
           </FormControl>
-        </MenuItem>
-        <MenuItem>
           <Autocomplete
             multiple
             disableCloseOnSelect
@@ -201,7 +199,7 @@ export const SearchBar: React.FC<SearchProps> = ({
             )}
             sx={{ width: "100%" }}
           />
-        </MenuItem>
+        </Box>
       </Menu>
     </>
   );
