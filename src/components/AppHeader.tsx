@@ -8,6 +8,9 @@ export function AppHeader() {
   return (
     <AppBar position="static" sx={{ bgcolor: "primary", padding: "0px" }}>
       <Toolbar sx={{ padding: 0 }}>
+        <a href="/">
+          <img src="our_images/LabToLadle.png" width={50}></img>
+        </a>
         <Typography
           variant="h6"
           sx={{ flexGrow: 1, my: "10px", marginLeft: "10px" }}
