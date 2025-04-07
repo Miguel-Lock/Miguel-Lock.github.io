@@ -29,7 +29,7 @@ interface SearchQuery {
 interface SearchProps {
   query: SearchQuery;
   setSearchQuery: (query: SearchQuery) => void;
-  displayFavorites: Boolean;
+  displayFavorites: boolean;
   toggleDisplayFavorites: () => void;
   search: () => void;
 }

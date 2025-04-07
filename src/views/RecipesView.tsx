@@ -11,20 +11,6 @@ import { useFavorites } from "@/context/FavoritesContext";
 import { SearchBar } from "@/components/SearchBar";
 
 type difficultyLevels = "hard" | "moderate" | "easy";
-interface Recipe {
-  id: number;
-  name: string;
-  prep_time: string;
-  category: string;
-  ingredients: string[];
-  dietary: string[];
-  season: string;
-  cuisine: string;
-  difficulty: difficultyLevels;
-  images: string[];
-  steps: string[];
-  story: string;
-}
 
 interface SearchQuery {
   target: string; //this is the name or ingredient of the recipe
@@ -37,7 +23,7 @@ interface SearchQuery {
 
 export function RecipesView() {
   // const router = useRouter();
-  const [displayFavorites, setDisplayFavorites] = useState<Boolean>(false);
+  const [displayFavorites, setDisplayFavorites] = useState<boolean>(false);
   const { recipes } = useRecipes();
   const { isFavorite } = useFavorites();
   const [searchResults, setSearchResults] = useState(recipes);
@@ -138,7 +124,7 @@ export function RecipesView() {
         inFavorites
       );
     });
-    
+
     setPageNumber(1);
     setSearchResults(searchResults);
   }
