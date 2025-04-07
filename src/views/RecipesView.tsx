@@ -2,112 +2,138 @@
 
 import React, { useState, useEffect } from "react";
 // import React, { useContext } from "react";
-import {
-  Typography,
-  Box,
-  Grid,
-  TextField,
-  IconButton,
-  InputAdornment,
-  Container,
-  Pagination,
-} from "@mui/material";
+import { Typography, Box, Grid, Container, Pagination } from "@mui/material";
 import AppHeader from "@/components/AppHeader";
 // import { useRouter } from "next/navigation";
-import SearchIcon from "@mui/icons-material/Search";
-import FilterListIcon from "@mui/icons-material/FilterList";
 import RecipeCard from "@/components/RecipeCard";
 import { useRecipes } from "@/context/RecipeContext";
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { useFavorites } from "@/context/FavoritesContext";
+import { SearchBar } from "@/components/SearchBar";
 
-interface Recipe {
-  id: number;
-  name: string;
-  prep_time: string;
-  category: string;
-  ingredients: string[];
-  dietary: string[];
-  season: string;
-  cuisine: string;
-  difficulty: string;
-  images: string[];
-  steps: string[];
-  story: string;
+type difficultyLevels = "hard" | "moderate" | "easy";
+
+interface SearchQuery {
+  target: string; //this is the name or ingredient of the recipe
+  maxTime: number;
+  maxDifficulty: difficultyLevels;
+  filters: string[];
 }
-
-let typingTimer: ReturnType<typeof setTimeout>;
-const doneTypingInterval = 500;
 
 //initialize the recipes object array
 
 export function RecipesView() {
   // const router = useRouter();
-  const [displayFavorites, setDisplayFavorites] = useState(false);
+  const [displayFavorites, setDisplayFavorites] = useState<boolean>(false);
   const { recipes } = useRecipes();
   const { isFavorite } = useFavorites();
-  const [searchedRecipes, setSearchedRecipes] = useState(recipes);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [searchTarget, setSearchTarget] = useState("");
+  const [searchResults, setSearchResults] = useState(recipes);
+  const [pageNumber, setPageNumber] = useState<number>(1);
+  const [searchQuery, setSearchQuery] = useState<SearchQuery>({
+    target: "",
+    maxTime: 60,
+    maxDifficulty: "hard",
+    filters: [],
+  });
 
-  const recipesPerPage = 9;
+  const recipesPerPage: number = 9;
 
   const pageCount = Math.max(
-    Math.ceil(searchedRecipes.length / recipesPerPage),
+    Math.ceil(searchResults.length / recipesPerPage),
     1
   ); //divides and rounds up
-  const paginatedRecipes = searchedRecipes.filter(
+
+  const paginatedRecipes = searchResults.filter(
     (_, index) =>
       index >= (pageNumber - 1) * recipesPerPage &&
       index < pageNumber * recipesPerPage //pageNumber starts at 1, indexing starts at 0.
   );
 
-  //waits for .5s since the user stops typing to search
-  const delayedSearch = (target: string) => {
-    clearTimeout(typingTimer);
-    typingTimer = setTimeout(
-      () => setSearchedRecipes(search(target, recipes)),
-      doneTypingInterval
-    );
+  const timeToMin = (time: string) => {
+    const inHours = time.includes("hr") || time.includes("hour");
+    return inHours ? 60 : parseInt(time);
   };
 
-  function updateSearch(recipes: Recipe[]) {
-    return search(searchTarget, recipes);
-  }
-
-  function search(target: string, recipes: Recipe[]) {
-    target = target.toLowerCase();
+  function search() {
+    console.log("Applying search criteria");
+    const target = searchQuery.target.toLowerCase();
     //search by the name, prep_time, cuisine, dietary[], seasonal, category, and ingredients[]
+    //searches all the recipes
+    const filters = searchQuery.filters;
 
-    return recipes.filter((recipe) => {
+    let filterByCuisine = false;
+    let filterBySeason = false;
+    let filterByMeal = false;
+    let filterByDiet = false;
+
+    const seasons = ["winter", "summer", "autumn", "spring"];
+    const cuisines = ["italian", "thai", "american"];
+    const meals = [
+      "breakfast",
+      "lunch",
+      "dinner",
+      "snacks",
+      "beverage",
+      "desserts",
+    ];
+    const diets = ["gluten-free", "vegetarian"];
+    for (const index in filters) {
+      const filter = filters[index];
+      if (seasons.includes(filter.toLowerCase())) filterBySeason = true;
+      if (cuisines.includes(filter.toLowerCase())) filterByCuisine = true;
+      if (meals.includes(filter.toLowerCase())) filterByMeal = true;
+      if (diets.includes(filter.toLowerCase())) filterByDiet = true;
+    }
+    console.log(filterByCuisine, filterBySeason, filterByMeal, filterByDiet);
+    console.log(filters);
+
+    filters.includes("");
+
+    const searchResults = recipes.filter((recipe) => {
+      const containsTarget =
+        recipe.name?.toLowerCase().includes(target) ||
+        recipe.ingredients?.some((i) => i.toLowerCase().includes(target));
+
+      //if we aren't filtering, it's in season
+      const inSeason = !filterBySeason || filters.includes(recipe.season);
+      const inDiet =
+        !filterByDiet ||
+        filters.includes(recipe.dietary[0] || "default") ||
+        filters.includes(recipe.dietary[1] || "default");
+      const inCuisine = !filterByCuisine || filters.includes(recipe.cuisine);
+      const inMeal = !filterByMeal || filters.includes(recipe.category);
+      const inFavorites = !displayFavorites || isFavorite(recipe.id);
+      const inTime = timeToMin(recipe.prep_time) <= searchQuery.maxTime;
+
+      const difficultyMap = {
+        hard: 3,
+        moderate: 2,
+        easy: 1,
+      };
+      const inDifficulty =
+        difficultyMap[
+          recipe.difficulty.toLowerCase() as "hard" | "moderate" | "easy"
+        ] <= difficultyMap[searchQuery.maxDifficulty];
       return (
-        (recipe.name?.toLowerCase().includes(target) ||
-          recipe.ingredients?.some((i) => i.toLowerCase().includes(target)) ||
-          recipe.prep_time?.toLowerCase().includes(target) ||
-          recipe.cuisine?.toLowerCase().includes(target) ||
-          recipe.dietary?.some((d) => d.toLowerCase().includes(target)) ||
-          recipe.season?.toLowerCase().includes(target) ||
-          recipe.category?.toLowerCase().includes(target)) &&
-        (isFavorite(recipe.id) || !displayFavorites) //will display only favorites if set to that
+        containsTarget &&
+        inSeason &&
+        inDiet &&
+        inCuisine &&
+        inMeal &&
+        inTime &&
+        inDifficulty &&
+        inFavorites
       );
     });
+
+    setPageNumber(1);
+    setSearchResults(searchResults);
   }
 
+  // This has to be done with useEffect because if done in the toggle display favorites, it's backwards.
+  // I think the set call doesn't run immediately so it searches with a previous version of the favorites value
   useEffect(() => {
-    setSearchedRecipes(updateSearch(recipes));
+    search();
   }, [displayFavorites]);
-
-  const toggleDisplayFavorites = (
-    e: React.MouseEvent<unknown>,
-    selected: string
-  ) => {
-    if (selected === null) {
-      setDisplayFavorites(!displayFavorites);
-    } else {
-      setDisplayFavorites(selected === "fav");
-    }
-  };
 
   return (
     <Box>
@@ -131,52 +157,14 @@ export function RecipesView() {
 
             {/* Search Bar */}
             <Box>
-              <ToggleButtonGroup
-                value={displayFavorites ? "fav" : "all"}
-                exclusive
-                onChange={toggleDisplayFavorites}
-                aria-label="Platform"
-                color="primary"
-                sx={{ mr: 2, mb: 3, alignItems: "center" }}
-              >
-                <ToggleButton value="all" defaultChecked>
-                  All Recipes
-                </ToggleButton>
-                <ToggleButton value="fav">Favorites</ToggleButton>
-              </ToggleButtonGroup>
-
-              <TextField
-                placeholder="Search Recipes"
-                variant="outlined"
-                value={searchTarget}
-                sx={{ width: "300px" }}
-                slotProps={{
-                  input: {
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <IconButton>
-                          <FilterListIcon
-                            sx={{
-                              color: (theme) => theme.palette.text.primary,
-                            }}
-                          />
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <SearchIcon
-                          sx={{ color: (theme) => theme.palette.text.primary }}
-                        />
-                      </InputAdornment>
-                    ),
-                  },
-                }}
-                onChange={(e) => {
-                  e.preventDefault();
-                  setSearchTarget(e.target.value);
-                  delayedSearch(e.target.value);
-                }}
+              <SearchBar
+                query={searchQuery}
+                setSearchQuery={setSearchQuery}
+                displayFavorites={displayFavorites}
+                toggleDisplayFavorites={() =>
+                  setDisplayFavorites(!displayFavorites)
+                }
+                search={search}
               />
             </Box>
           </Box>
@@ -202,9 +190,10 @@ export function RecipesView() {
               size="large"
               color="primary"
               shape="rounded"
-              onChange={(e: React.ChangeEvent<unknown>, page: number) =>
-                setPageNumber(page)
-              }
+              page={pageNumber}
+              onChange={(e: React.ChangeEvent<unknown>, page: number) => {
+                setPageNumber(page);
+              }}
               sx={{ mt: 4 }}
             />
           </Box>

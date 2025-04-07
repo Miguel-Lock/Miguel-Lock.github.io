@@ -9,6 +9,10 @@ const colors = {
     primary: "#f09595",
     buttonText: "#0a0a0a",
     shadowColor: "rgba(0, 0, 0, 0.5)",
+    inputBorder: "rgba(0, 0, 0, 0.23)",
+    inputLabel: "rgba(0, 0, 0, 0.6)",
+    placeholder: "rgba(0, 0, 0, 0.5)",
+    dropdownIcon: "rgba(0, 0, 0, 0.54)",
   },
   dark: {
     background: "#0a0a0a",
@@ -17,6 +21,10 @@ const colors = {
     primary: "#b07675",
     buttonText: "#ffffff",
     shadowColor: "rgb(255, 255, 255, .1)",
+    inputBorder: "rgba(255, 255, 255, 0.5)",
+    inputLabel: "rgba(255, 255, 255, 0.7)",
+    placeholder: "rgba(255, 255, 255, 0.5)",
+    dropdownIcon: "rgba(255, 255, 255, 0.7)",
   },
 };
 
@@ -50,26 +58,68 @@ export const getTheme = (mode: "light" | "dark") => {
       fontFamily: "Arial, Helvetica, sans-serif",
     },
     components: {
-      MuiOutlinedInput: {
+      MuiAutocomplete: {
         styleOverrides: {
-          root: {
-            "&:hover .MuiOutlinedInput-notchedOutline": {
-              borderColor: themeColors.text, // Use text color on hover
-              opacity: 0.8, // Make more visible
-            },
-            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-              borderColor: themeColors.primary, // Use primary color when focused
-              borderWidth: "2px", // Thicker border when focused
+          paper: {
+            backgroundColor: themeColors.paper,
+            color: themeColors.text,
+            "& .MuiAutocomplete-option": {
+              "&[aria-selected='true']": {
+                backgroundColor:
+                  mode === "dark"
+                    ? "rgba(255, 255, 255, 0.16)"
+                    : "rgba(0, 0, 0, 0.08)",
+              },
+              "&[aria-selected='true'].Mui-focused": {
+                backgroundColor:
+                  mode === "dark"
+                    ? "rgba(255, 255, 255, 0.24)"
+                    : "rgba(0, 0, 0, 0.12)",
+              },
             },
           },
-          notchedOutline: {
-            borderColor:
-              mode === "dark"
-                ? "rgba(255, 255, 255, 0.5)" // More visible in dark mode
-                : "rgba(0, 0, 0, 0.23)", // Default light mode
+          clearIndicator: {
+            color: themeColors.dropdownIcon,
+          },
+          popupIndicator: {
+            color: themeColors.dropdownIcon,
           },
         },
       },
+      // TextField and Input styles
+      MuiOutlinedInput: {
+        styleOverrides: {
+          root: {
+            color: themeColors.text,
+            "&:hover .MuiOutlinedInput-notchedOutline": {
+              borderColor: themeColors.text,
+              opacity: 0.8,
+            },
+            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+              borderColor: themeColors.primary,
+              borderWidth: "2px",
+            },
+            "& input::placeholder": {
+              color: themeColors.placeholder,
+              opacity: 1,
+            },
+          },
+          notchedOutline: {
+            borderColor: themeColors.inputBorder,
+          },
+        },
+      },
+      MuiInputLabel: {
+        styleOverrides: {
+          root: {
+            color: themeColors.inputLabel,
+            "&.Mui-focused": {
+              color: themeColors.primary,
+            },
+          },
+        },
+      },
+      // ToggleButton styles (existing)
       MuiToggleButtonGroup: {
         styleOverrides: {
           root: {
@@ -97,6 +147,24 @@ export const getTheme = (mode: "light" | "dark") => {
                   ? "rgba(255, 255, 255, 0.08)"
                   : "rgba(0, 0, 0, 0.04)",
             },
+          },
+        },
+      },
+      // Menu styles
+      MuiMenu: {
+        styleOverrides: {
+          paper: {
+            backgroundColor: themeColors.paper,
+            color: themeColors.text,
+          },
+        },
+      },
+      // List styles for dropdown
+      MuiList: {
+        styleOverrides: {
+          root: {
+            backgroundColor: themeColors.paper,
+            color: themeColors.text,
           },
         },
       },
