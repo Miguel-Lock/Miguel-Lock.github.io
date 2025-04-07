@@ -127,7 +127,6 @@ export function RecipesView() {
         difficultyMap[
           recipe.difficulty.toLowerCase() as "hard" | "moderate" | "easy"
         ] <= difficultyMap[searchQuery.maxDifficulty];
-
       return (
         containsTarget &&
         inSeason &&
@@ -139,7 +138,8 @@ export function RecipesView() {
         inFavorites
       );
     });
-
+    
+    setPageNumber(1);
     setSearchResults(searchResults);
   }
 
@@ -204,9 +204,10 @@ export function RecipesView() {
               size="large"
               color="primary"
               shape="rounded"
-              onChange={(e: React.ChangeEvent<unknown>, page: number) =>
-                setPageNumber(page)
-              }
+              page={pageNumber}
+              onChange={(e: React.ChangeEvent<unknown>, page: number) => {
+                setPageNumber(page);
+              }}
               sx={{ mt: 4 }}
             />
           </Box>
