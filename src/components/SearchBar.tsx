@@ -135,12 +135,19 @@ export const SearchBar: React.FC<SearchProps> = ({
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={handleClose}
+        autoFocus={false} // Disable menu's auto focus
+        disableAutoFocusItem // Don't focus menu items automatically
         PaperProps={{
           style: {
             width: "250px", // Set your desired width
             maxHeight: "none", // Remove default maxHeight if needed
             padding: "8px", // Optional padding
           },
+        }}
+        MenuListProps={{
+          autoFocus: false,
+          disableListWrap: true, // prevent wrapping around menu items
+          disablePadding: true,
         }}
       >
         <Box sx={{ display: "flex", flexDirection: "column", px: 2 }}>
