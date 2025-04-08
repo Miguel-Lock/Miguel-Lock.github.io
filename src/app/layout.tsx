@@ -4,6 +4,9 @@ import { ThemeProvider as AppThemeProvider } from "@/context/ThemeContext";
 import { RecipeProvider } from "@/context/RecipeContext";
 import { AppFooter } from "@/components/AppFooter"; // Import AppFooter
 import { FavoritesProvider } from "@/context/FavoritesContext";
+import { Montserrat } from "next/font/google";
+
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 export default function RootLayout({
   children,
@@ -11,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={montserrat.className}>
       <AppThemeProvider>
         <ThemeProvider>
           <FavoritesProvider>

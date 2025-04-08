@@ -60,7 +60,7 @@ export const getTheme = (mode: "light" | "dark") => {
       },
     },
     typography: {
-      fontFamily: "Arial, Helvetica, sans-serif",
+      fontFamily: "Montserrat, Arial, San-sarif",
     },
     components: {
       MuiAutocomplete: {
