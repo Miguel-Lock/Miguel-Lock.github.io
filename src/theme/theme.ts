@@ -13,6 +13,7 @@ const colors = {
     inputLabel: "rgba(0, 0, 0, 0.6)",
     placeholder: "rgba(0, 0, 0, 0.5)",
     dropdownIcon: "rgba(0, 0, 0, 0.54)",
+    success: "#11308f",
   },
   dark: {
     background: "#0a0a0a",
@@ -25,6 +26,7 @@ const colors = {
     inputLabel: "rgba(255, 255, 255, 0.7)",
     placeholder: "rgba(255, 255, 255, 0.5)",
     dropdownIcon: "rgba(255, 255, 255, 0.7)",
+    success: "#11308f",
   },
 };
 
@@ -39,6 +41,9 @@ export const getTheme = (mode: "light" | "dark") => {
       },
       secondary: {
         main: themeColors.shadowColor,
+      },
+      success: {
+        main: themeColors.success,
       },
       // secondary: {
       //   main: themeColors.secondary,

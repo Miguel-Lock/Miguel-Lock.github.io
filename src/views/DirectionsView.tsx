@@ -88,6 +88,9 @@ export function DirectionsView({ recipeID }: { recipeID: number }) {
             <InfoChip label={displayedRecipe.category} />
             <InfoChip label={displayedRecipe.cuisine} />
             <InfoChip label={displayedRecipe.difficulty} />
+            {displayedRecipe.dietary.map((restriction) => {
+              return <InfoChip label={restriction} />;
+            })}
           </Box>
 
           <Typography
@@ -169,7 +172,7 @@ export function DirectionsView({ recipeID }: { recipeID: number }) {
               return (
                 <FormControlLabel
                   key={"ingredient-" + index}
-                  control={<Checkbox color="secondary" />}
+                  control={<Checkbox color="success" />}
                   label={el}
                 />
               );
