@@ -17,11 +17,11 @@ const colors = {
     success: "#11308f",
   },
   dark: {
-    background: "#0a0a0a",
+    background: "hsl(0, 0%, 8%)",
     paper: "#1e1e1e",
     text: "#ededed",
     primary: "#b07675",
-    accent: "#393b4c",
+    accent: "hsl(0, 0%, 15%)",
     buttonText: "#ffffff",
     shadowColor: "rgb(255, 255, 255, .1)",
     inputBorder: "rgba(255, 255, 255, 0.5)",

@@ -16,6 +16,7 @@ import InfoChip from "@/components/InfoChip";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
 import { useFavorites } from "@/context/FavoritesContext";
+import { mainModule } from "process";
 
 interface Recipe {
   id: number;
@@ -44,6 +45,7 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
   return (
     <Card
       sx={{
+        bgcolor: "primary.light",
         boxShadow: `0 0 4px ${theme.palette.secondary.main}`,
         borderRadius: "10px",
         cursor: "pointer",
