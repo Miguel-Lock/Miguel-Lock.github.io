@@ -88,8 +88,8 @@ export function DirectionsView({ recipeID }: { recipeID: number }) {
             <InfoChip label={displayedRecipe.category} />
             <InfoChip label={displayedRecipe.cuisine} />
             <InfoChip label={displayedRecipe.difficulty} />
-            {displayedRecipe.dietary.map((restriction) => {
-              return <InfoChip label={restriction} />;
+            {displayedRecipe.dietary.map((restriction, index) => {
+              return <InfoChip label={restriction} key={"dietary-" + index} />;
             })}
           </Box>
 
