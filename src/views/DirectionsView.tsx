@@ -8,10 +8,12 @@ import {
   Button,
   IconButton,
   CardMedia,
+  FormGroup,
+  FormControlLabel,
+  Checkbox,
 } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import AppHeader from "@/components/AppHeader";
 import { useRecipes } from "@/context/RecipeContext";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
@@ -45,13 +47,24 @@ export function DirectionsView({ recipeID }: { recipeID: number }) {
 
   return (
     <Box>
-      {/* Header */}
-      <AppHeader />
-
       {/* Main Content */}
-      <Container sx={{ display: "flex", marginTop: 4 }}>
-        {/* Left Section */}
-        <Box flex={2} sx={{ paddingRight: 4 }}>
+      <Container
+        sx={{
+          display: "flex",
+          marginTop: 4,
+          flexDirection: "column",
+          alignItems: { xs: "center", md: "flex-start" },
+        }}
+      >
+        {/* Recipe display and story */}
+        <Box
+          sx={{
+            flex: 2,
+            order: 1,
+            width: { xs: "100%" },
+            pr: { md: "425px", xl: "220px" },
+          }}
+        >
           <Typography variant="h3" fontWeight="bold">
             {displayedRecipe.name}
             <IconButton
@@ -66,11 +79,14 @@ export function DirectionsView({ recipeID }: { recipeID: number }) {
           </Typography>
 
           {/* Tags */}
-          <Box sx={{ display: "flex", gap: 1, marginY: 2 }}>
+          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, marginY: 2 }}>
             <InfoChip label={displayedRecipe.prep_time} />
             <InfoChip label={displayedRecipe.category} />
             <InfoChip label={displayedRecipe.cuisine} />
             <InfoChip label={displayedRecipe.difficulty} />
+            {displayedRecipe.dietary.map((restriction, index) => {
+              return <InfoChip label={restriction} key={"dietary-" + index} />;
+            })}
           </Box>
 
           <Typography
@@ -91,29 +107,36 @@ export function DirectionsView({ recipeID }: { recipeID: number }) {
           <Button
             variant="contained"
             size="small"
-            sx={{ marginY: 2 }}
+            sx={{ marginY: 2, maxWidth: "120px" }}
             onClick={() => setReadMore(!readMore)}
           >
             {readMore ? "READ LESS" : "READ MORE"}
           </Button>
-
-          {/* Directions */}
-          <Typography variant="h5" fontWeight="bold">
-            Directions:
-          </Typography>
-          <Typography component="ol">
-            {displayedRecipe.steps.map((step, index) => (
-              <li key={"step-" + index}>{step}</li>
-            ))}
-          </Typography>
         </Box>
 
-        {/* Right Section */}
+        {/* This is the picture box */}
         <Box
-          flex={1}
-          sx={{ textAlign: "center", bgcolor: "primary.main", padding: 2 }}
+          sx={{
+            flex: 1,
+            bgcolor: "primary.light",
+            p: 2,
+            borderRadius: 2,
+            justifyItems: "center",
+            maxWidth: "400px",
+            order: { xs: 2, md: 3 },
+            position: { md: "absolute" },
+            right: { md: "25px" },
+          }}
         >
-          <Box sx={{ flexDirection: "row", gap: 2 }}>
+          <Card sx={{ maxWidth: 345, margin: "auto" }}>
+            <CardMedia
+              component="img"
+              image={"/image_files/" + displayedRecipe.images[image]}
+              alt={displayedRecipe.name}
+              sx={{ objectFit: "cover", maxWidth: "345px" }}
+            />
+          </Card>
+          <Box sx={{ justifyContent: "center", alignItems: "center" }}>
             <IconButton
               onClick={() =>
                 setImage(
@@ -121,18 +144,10 @@ export function DirectionsView({ recipeID }: { recipeID: number }) {
                     displayedRecipe.images.length
                 )
               }
+              sx={{ mr: 5 }}
             >
               <ArrowBackIosIcon />
             </IconButton>
-
-            <Card sx={{ maxWidth: 345, margin: "auto" }}>
-              <CardMedia
-                component="img"
-                image={"/image_files/" + displayedRecipe.images[image]}
-                alt={displayedRecipe.name}
-                sx={{ objectFit: "cover", maxWidth: "345px" }}
-              />
-            </Card>
 
             <IconButton
               onClick={() =>
@@ -142,15 +157,41 @@ export function DirectionsView({ recipeID }: { recipeID: number }) {
               <ArrowForwardIosIcon />
             </IconButton>
           </Box>
+
           {/* Ingredients */}
           <Typography variant="h6" fontWeight="bold" sx={{ marginTop: 2 }}>
             Ingredients:
           </Typography>
-          <ul>
-            {displayedRecipe.ingredients.map((el, index) => (
-              <li key={"ingredient-" + index}>{el}</li>
+
+          <FormGroup>
+            {displayedRecipe.ingredients.map((el, index) => {
+              return (
+                <FormControlLabel
+                  key={"ingredient-" + index}
+                  control={<Checkbox />}
+                  label={el}
+                />
+              );
+            })}
+          </FormGroup>
+        </Box>
+
+        {/* Directions */}
+        <Box
+          sx={{
+            order: { xs: 3, md: 2 },
+            width: { xs: "100%" },
+            pr: { md: "425px", xl: "220px" },
+          }}
+        >
+          <Typography variant="h5" fontWeight="bold" sx={{ mt: 2 }}>
+            Directions:
+          </Typography>
+          <Typography component="ol" sx={{ mt: 1, mb: 5 }}>
+            {displayedRecipe.steps.map((step, index) => (
+              <li key={"step-" + index}>{step}</li>
             ))}
-          </ul>
+          </Typography>
         </Box>
       </Container>
     </Box>

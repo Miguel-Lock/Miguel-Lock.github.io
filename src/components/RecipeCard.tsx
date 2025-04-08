@@ -44,6 +44,7 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
   return (
     <Card
       sx={{
+        bgcolor: "primary.light",
         boxShadow: `0 0 4px ${theme.palette.secondary.main}`,
         borderRadius: "10px",
         cursor: "pointer",
