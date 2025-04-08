@@ -19,6 +19,7 @@ export function AppHeader() {
             style={{
               objectFit: "contain",
               height: "auto",
+              marginLeft: "16px",
             }}
           />
         </Link>
