@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import {
   Typography,
+  Container,
   Box,
   Card,
   Button,
@@ -10,9 +11,8 @@ import {
   FormGroup,
   FormControlLabel,
   Checkbox,
-  Grid,
 } from "@mui/material";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useRecipes } from "@/context/RecipeContext";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
@@ -46,111 +46,110 @@ export function DirectionsView({ recipeID }: { recipeID: number }) {
   const [readMore, setReadMore] = useState(false);
 
   return (
-    <Grid container spacing={2} sx={{ flexGrow: 1 }}>
-      {/* About Section */}
-      <Grid
-        size={{ xs: 12, sm: 6, md: 7, lg: 8 }}
-        sx={{ p: { xs: 2, sm: 3, md: 6, lg: 8 } }}
+    <Box>
+      {/* Main Content */}
+      <Container
+        sx={{
+          display: "flex",
+          marginTop: 4,
+          flexDirection: "column",
+          alignItems: { xs: "center", md: "flex-start" },
+        }}
       >
         {/* Recipe display and story */}
-        <Typography variant="h3" fontWeight="bold">
-          {displayedRecipe.name}
-          <IconButton
-            sx={{
-              color: "text.primary",
-              ml: 1,
-            }}
-            onClick={() => toggleFavorite(recipeID)}
-          >
-            {isFavorite(recipeID) ? <StarIcon /> : <StarBorderIcon />}
-          </IconButton>
-        </Typography>
-
-        {/* Tags */}
-        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, marginY: 2 }}>
-          <InfoChip label={displayedRecipe.prep_time} />
-          <InfoChip label={displayedRecipe.category} />
-          <InfoChip label={displayedRecipe.cuisine} />
-          <InfoChip label={displayedRecipe.difficulty} />
-          {displayedRecipe.dietary.map((restriction, index) => {
-            return <InfoChip label={restriction} key={"dietary-" + index} />;
-          })}
-        </Box>
-
-        <Typography
-          sx={
-            !readMore
-              ? {
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  display: "-webkit-box",
-                  WebkitLineClamp: "3",
-                  WebkitBoxOrient: "vertical",
-                }
-              : undefined
-          }
+        <Box
+          sx={{
+            flex: 2,
+            order: 1,
+            width: { xs: "100%" },
+            pr: { md: "425px", xl: "220px" },
+          }}
         >
-          {displayedRecipe.story}
-        </Typography>
-        <Box sx={{ textAlign: "right" }}>
+          <Typography variant="h3" fontWeight="bold">
+            {displayedRecipe.name}
+            <IconButton
+              sx={{
+                color: "text.primary",
+                ml: 1,
+              }}
+              onClick={() => toggleFavorite(recipeID)}
+            >
+              {isFavorite(recipeID) ? <StarIcon /> : <StarBorderIcon />}
+            </IconButton>
+          </Typography>
+
+          {/* Tags */}
+          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, marginY: 2 }}>
+            <InfoChip label={displayedRecipe.prep_time} />
+            <InfoChip label={displayedRecipe.category} />
+            <InfoChip label={displayedRecipe.cuisine} />
+            <InfoChip label={displayedRecipe.difficulty} />
+            {displayedRecipe.dietary.map((restriction, index) => {
+              return <InfoChip label={restriction} key={"dietary-" + index} />;
+            })}
+          </Box>
+
+          <Typography
+            sx={
+              !readMore
+                ? {
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    display: "-webkit-box",
+                    WebkitLineClamp: "3",
+                    WebkitBoxOrient: "vertical",
+                  }
+                : undefined
+            }
+          >
+            {displayedRecipe.story}
+          </Typography>
           <Button
             variant="contained"
             size="small"
-            sx={{ marginTop: 1, bgcolor: "primary.light" }}
+            sx={{ marginY: 2, maxWidth: "120px" }}
             onClick={() => setReadMore(!readMore)}
           >
             {readMore ? "READ LESS" : "READ MORE"}
           </Button>
         </Box>
 
-        {/* Directions */}
-        <Box>
-          <Typography variant="h5" fontWeight="bold">
-            Directions:
-          </Typography>
-          <Typography component="ol">
-            {displayedRecipe.steps.map((step, index) => (
-              <li key={"step-" + index}>{step}</li>
-            ))}
-          </Typography>
-        </Box>
-      </Grid>
-      {/* Directions Section */}
-      <Grid
-        size={{ xs: 12, sm: 6, md: 5, lg: 4 }}
-        sx={{ bgcolor: "primary.light", p: { xs: 2, sm: 3, md: 6, lg: 8 } }}
-      >
-        <Box sx={{ margin: "auto" }}>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              mb: 1,
-            }}
-          >
+        {/* This is the picture box */}
+        <Box
+          sx={{
+            flex: 1,
+            bgcolor: "primary.light",
+            p: 2,
+            borderRadius: 2,
+            justifyItems: "center",
+            maxWidth: "400px",
+            order: { xs: 2, md: 3 },
+            position: { md: "absolute" },
+            right: { md: "25px" },
+          }}
+        >
+          <Card sx={{ maxWidth: 345, margin: "auto" }}>
+            <CardMedia
+              component="img"
+              image={"/image_files/" + displayedRecipe.images[image]}
+              alt={displayedRecipe.name}
+              sx={{ objectFit: "cover", maxWidth: "345px" }}
+            />
+          </Card>
+          <Box sx={{ justifyContent: "center", alignItems: "center" }}>
             <IconButton
-              sx={{ mr: 1 }}
               onClick={() =>
                 setImage(
                   (image + displayedRecipe.images.length - 1) %
                     displayedRecipe.images.length
                 )
               }
+              sx={{ mr: 5 }}
             >
-              <ArrowBackIosNewIcon />
+              <ArrowBackIosIcon />
             </IconButton>
 
-            <Card sx={{ flex: 1 }}>
-              <CardMedia
-                component="img"
-                image={"/image_files/" + displayedRecipe.images[image]}
-                alt={displayedRecipe.name}
-                sx={{ objectFit: "cover" }}
-              />
-            </Card>
-
             <IconButton
-              sx={{ ml: 1 }}
               onClick={() =>
                 setImage((image + 1) % displayedRecipe.images.length)
               }
@@ -176,8 +175,26 @@ export function DirectionsView({ recipeID }: { recipeID: number }) {
             })}
           </FormGroup>
         </Box>
-      </Grid>
-    </Grid>
+
+        {/* Directions */}
+        <Box
+          sx={{
+            order: { xs: 3, md: 2 },
+            width: { xs: "100%" },
+            pr: { md: "425px", xl: "220px" },
+          }}
+        >
+          <Typography variant="h5" fontWeight="bold" sx={{ mt: 2 }}>
+            Directions:
+          </Typography>
+          <Typography component="ol" sx={{ mt: 1, mb: 5 }}>
+            {displayedRecipe.steps.map((step, index) => (
+              <li key={"step-" + index}>{step}</li>
+            ))}
+          </Typography>
+        </Box>
+      </Container>
+    </Box>
   );
 }
 
