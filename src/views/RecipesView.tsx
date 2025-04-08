@@ -189,7 +189,7 @@ export function RecipesView() {
             onChange={(e: React.ChangeEvent<unknown>, page: number) => {
               setPageNumber(page);
             }}
-            sx={{ mt: 4 }}
+            sx={{ mt: 4, "& .Mui-selected": { color: "text.secondary" } }}
           />
         </Box>
       </Box>

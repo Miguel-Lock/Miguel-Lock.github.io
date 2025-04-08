@@ -26,6 +26,7 @@ export function AppHeader() {
         <Typography
           variant="h6"
           sx={{ flexGrow: 1, my: "10px", marginLeft: "10px" }}
+          color="text.secondary"
         >
           Lab to Ladle
         </Typography>
@@ -40,6 +41,7 @@ export function AppHeader() {
             px: 2,
             display: "flex",
             alignItems: "center",
+            color: "text.secondary",
             "&:hover": {
               backgroundColor: "transparent",
             },
@@ -51,7 +53,7 @@ export function AppHeader() {
           orientation="vertical"
           flexItem
           sx={{
-            borderColor: "text.primary",
+            borderColor: "text.secondary",
             my: "10px",
           }}
         />
@@ -66,6 +68,7 @@ export function AppHeader() {
             px: 2,
             display: "flex",
             alignItems: "center",
+            color: "text.secondary",
             "&:hover": {
               backgroundColor: "transparent",
             },

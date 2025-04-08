@@ -4,8 +4,9 @@ import { createTheme } from "@mui/material/styles";
 const colors = {
   light: {
     background: "#ffffff",
-    paper: "#d9d9d9",
+    paper: "#fafafa",
     text: "#171717",
+    onPrimaryText: "#171717",
     primary: "#f09595",
     accent: "#d9d9d9",
     buttonText: "#0a0a0a",
@@ -14,12 +15,12 @@ const colors = {
     inputLabel: "rgba(0, 0, 0, 0.6)",
     placeholder: "rgba(0, 0, 0, 0.5)",
     dropdownIcon: "rgba(0, 0, 0, 0.54)",
-    success: "#11308f",
   },
   dark: {
     background: "hsl(0, 0%, 8%)",
     paper: "#1e1e1e",
     text: "#ededed",
+    onPrimaryText: "#171717",
     primary: "#b07675",
     accent: "hsl(0, 0%, 15%)",
     buttonText: "#ffffff",
@@ -28,7 +29,6 @@ const colors = {
     inputLabel: "rgba(255, 255, 255, 0.7)",
     placeholder: "rgba(255, 255, 255, 0.5)",
     dropdownIcon: "rgba(255, 255, 255, 0.7)",
-    success: "#11308f",
   },
 };
 
@@ -45,18 +45,13 @@ export const getTheme = (mode: "light" | "dark") => {
       secondary: {
         main: themeColors.shadowColor,
       },
-      success: {
-        main: themeColors.success,
-      },
-      // secondary: {
-      //   main: themeColors.secondary,
-      // },
       background: {
         default: themeColors.background,
         paper: themeColors.paper,
       },
       text: {
         primary: themeColors.text,
+        secondary: themeColors.onPrimaryText,
       },
       action: {
         disabled: themeColors.text,
@@ -143,7 +138,7 @@ export const getTheme = (mode: "light" | "dark") => {
             backgroundColor: themeColors.background,
             "&.Mui-selected": {
               backgroundColor: themeColors.primary,
-              color: themeColors.buttonText,
+              color: themeColors.onPrimaryText,
               "&:hover": {
                 backgroundColor: themeColors.primary,
                 opacity: 0.9,
