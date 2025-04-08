@@ -11,7 +11,7 @@ export function AppHeader() {
       <Toolbar sx={{ padding: 0 }}>
         <Link href="/">
           <Image
-            src={"our_images/LabToLadle.png"}
+            src={"/our_images/LabToLadle.png"}
             alt="Company Logo"
             width={50} // Set appropriate width
             height={60}
@@ -19,6 +19,7 @@ export function AppHeader() {
             style={{
               objectFit: "contain",
               height: "auto",
+              marginLeft: "16px",
             }}
           />
         </Link>
