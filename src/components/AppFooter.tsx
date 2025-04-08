@@ -3,7 +3,8 @@
 import { AppBar, Toolbar, Typography, IconButton } from "@mui/material";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
-import Link from "next/link";
+// import Link from "next/link";
+import { Link } from "@mui/material";
 import { useTheme } from "@/context/ThemeContext";
 
 export function AppFooter() {
@@ -15,7 +16,7 @@ export function AppFooter() {
         <Typography variant="body1" sx={{ flexGrow: 1, marginLeft: "10px" }}>
           <Link
             href="https://github.com/Miguel-Lock/Miguel-Lock.github.io#"
-            style={{ color: "inherit" }}
+            color="text.secondary"
             target="_blank"
             rel="noopener noreferrer"
           >

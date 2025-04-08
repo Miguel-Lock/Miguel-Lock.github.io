@@ -107,7 +107,7 @@ export function DirectionsView({ recipeID }: { recipeID: number }) {
           <Button
             variant="contained"
             size="small"
-            sx={{ marginY: 2, maxWidth: "120px" }}
+            sx={{ marginY: 2, maxWidth: "120px", color: "text.secondary" }}
             onClick={() => setReadMore(!readMore)}
           >
             {readMore ? "READ LESS" : "READ MORE"}
@@ -146,7 +146,7 @@ export function DirectionsView({ recipeID }: { recipeID: number }) {
               }
               sx={{ mr: 5 }}
             >
-              <ArrowBackIosIcon />
+              <ArrowBackIosIcon sx={{ color: "text.primary" }} />
             </IconButton>
 
             <IconButton
@@ -154,7 +154,7 @@ export function DirectionsView({ recipeID }: { recipeID: number }) {
                 setImage((image + 1) % displayedRecipe.images.length)
               }
             >
-              <ArrowForwardIosIcon />
+              <ArrowForwardIosIcon sx={{ color: "text.primary" }} />
             </IconButton>
           </Box>
 
@@ -168,7 +168,7 @@ export function DirectionsView({ recipeID }: { recipeID: number }) {
               return (
                 <FormControlLabel
                   key={"ingredient-" + index}
-                  control={<Checkbox />}
+                  control={<Checkbox sx={{ color: "text.primary" }} />}
                   label={el}
                 />
               );
