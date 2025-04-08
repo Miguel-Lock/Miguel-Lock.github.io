@@ -2,8 +2,15 @@
 
 import React, { useState, useEffect } from "react";
 // import React, { useContext } from "react";
-import { Typography, Box, Grid, Container, Pagination } from "@mui/material";
-// import { useRouter } from "next/navigation";
+import {
+  Typography,
+  Box,
+  Grid,
+  Container,
+  Pagination,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import RecipeCard from "@/components/RecipeCard";
 import { useRecipes } from "@/context/RecipeContext";
 import { useFavorites } from "@/context/FavoritesContext";
@@ -134,6 +141,9 @@ export function RecipesView() {
     search();
   }, [displayFavorites]);
 
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <Container>
       {/* All Recipes Section */}
@@ -182,14 +192,17 @@ export function RecipesView() {
         <Box display="flex" justifyContent="center" alignItems="center">
           <Pagination
             count={pageCount}
-            size="large"
             color="primary"
             shape="rounded"
             page={pageNumber}
             onChange={(e: React.ChangeEvent<unknown>, page: number) => {
               setPageNumber(page);
             }}
-            sx={{ mt: 4, "& .Mui-selected": { color: "text.secondary" } }}
+            siblingCount={isSmallScreen ? 0 : 1}
+            sx={{
+              mt: 4,
+              "& .Mui-selected": { color: "text.secondary" },
+            }}
           />
         </Box>
       </Box>
