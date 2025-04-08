@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 // import React, { useContext } from "react";
 import { Typography, Box, Grid, Container, Pagination } from "@mui/material";
-import AppHeader from "@/components/AppHeader";
 // import { useRouter } from "next/navigation";
 import RecipeCard from "@/components/RecipeCard";
 import { useRecipes } from "@/context/RecipeContext";
@@ -136,69 +135,64 @@ export function RecipesView() {
   }, [displayFavorites]);
 
   return (
-    <Box>
-      {/* Navbar */}
-      <AppHeader />
+    <Container>
+      {/* All Recipes Section */}
+      <Box sx={{ padding: "20px" }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 2,
+            justifyContent: "space-between",
+            marginBottom: 3,
+            marginTop: 1,
+          }}
+        >
+          <Typography variant="h3">All Recipes</Typography>
 
-      <Container>
-        {/* All Recipes Section */}
-        <Box sx={{ padding: "20px" }}>
-          <Box
-            sx={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: 2,
-              justifyContent: "space-between",
-              marginBottom: 3,
-              marginTop: 1,
-            }}
-          >
-            <Typography variant="h3">All Recipes</Typography>
-
-            {/* Search Bar */}
-            <Box>
-              <SearchBar
-                query={searchQuery}
-                setSearchQuery={setSearchQuery}
-                displayFavorites={displayFavorites}
-                toggleDisplayFavorites={() =>
-                  setDisplayFavorites(!displayFavorites)
-                }
-                search={search}
-              />
-            </Box>
-          </Box>
-
-          {/* Recipe Grid */}
-          <Grid container spacing={3}>
-            {paginatedRecipes.length === 0 ? (
-              <Typography variant="h6" sx={{ mt: 2, mb: 3, ml: 3, mr: 3 }}>
-                No results, try broadening your search
-              </Typography>
-            ) : null}
-
-            {paginatedRecipes.map((recipe, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
-                <RecipeCard recipe={recipe} />
-              </Grid>
-            ))}
-          </Grid>
-
-          <Box display="flex" justifyContent="center" alignItems="center">
-            <Pagination
-              count={pageCount}
-              size="large"
-              color="primary"
-              shape="rounded"
-              page={pageNumber}
-              onChange={(e: React.ChangeEvent<unknown>, page: number) => {
-                setPageNumber(page);
-              }}
-              sx={{ mt: 4 }}
+          {/* Search Bar */}
+          <Box>
+            <SearchBar
+              query={searchQuery}
+              setSearchQuery={setSearchQuery}
+              displayFavorites={displayFavorites}
+              toggleDisplayFavorites={() =>
+                setDisplayFavorites(!displayFavorites)
+              }
+              search={search}
             />
           </Box>
         </Box>
-      </Container>
-    </Box>
+
+        {/* Recipe Grid */}
+        <Grid container spacing={3}>
+          {paginatedRecipes.length === 0 ? (
+            <Typography variant="h6" sx={{ mt: 2, mb: 3, ml: 3, mr: 3 }}>
+              No results, try broadening your search
+            </Typography>
+          ) : null}
+
+          {paginatedRecipes.map((recipe, index) => (
+            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
+              <RecipeCard recipe={recipe} />
+            </Grid>
+          ))}
+        </Grid>
+
+        <Box display="flex" justifyContent="center" alignItems="center">
+          <Pagination
+            count={pageCount}
+            size="large"
+            color="primary"
+            shape="rounded"
+            page={pageNumber}
+            onChange={(e: React.ChangeEvent<unknown>, page: number) => {
+              setPageNumber(page);
+            }}
+            sx={{ mt: 4 }}
+          />
+        </Box>
+      </Box>
+    </Container>
   );
 }

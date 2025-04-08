@@ -14,7 +14,6 @@ import {
 } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import AppHeader from "@/components/AppHeader";
 import { useRecipes } from "@/context/RecipeContext";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
@@ -48,9 +47,6 @@ export function DirectionsView({ recipeID }: { recipeID: number }) {
 
   return (
     <Box>
-      {/* Header */}
-      <AppHeader />
-
       {/* Main Content */}
       <Container
         sx={{
@@ -122,7 +118,7 @@ export function DirectionsView({ recipeID }: { recipeID: number }) {
         <Box
           sx={{
             flex: 1,
-            bgcolor: "primary.main",
+            bgcolor: "primary.light",
             p: 2,
             borderRadius: 2,
             justifyItems: "center",
@@ -172,7 +168,7 @@ export function DirectionsView({ recipeID }: { recipeID: number }) {
               return (
                 <FormControlLabel
                   key={"ingredient-" + index}
-                  control={<Checkbox color="success" />}
+                  control={<Checkbox />}
                   label={el}
                 />
               );

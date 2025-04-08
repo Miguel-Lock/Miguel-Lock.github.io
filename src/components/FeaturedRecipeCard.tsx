@@ -74,6 +74,7 @@ export function FeaturedRecipeCard() {
         flexDirection: { xs: "column", sm: "row" },
         marginTop: "20px",
         padding: "16px",
+        bgcolor: "primary.light",
         boxShadow: `0 0 4px ${theme.palette.secondary.main}`,
         borderRadius: "10px",
         cursor: "pointer",
