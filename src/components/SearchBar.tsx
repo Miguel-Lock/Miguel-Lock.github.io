@@ -50,7 +50,7 @@ const seasonFilters = ["Autumn", "Spring", "Winter", "Summer"];
 
 const dietaryOptions = ["Gluten-Free", "Vegetarian", "High-Protein"];
 
-const cuisineFilters = ["Italian", "Thai", "American"];
+const cuisineFilters = ["Italian", "Thai", "American", "Cuban", "Mexican"];
 
 let typingTimer: ReturnType<typeof setTimeout>;
 const doneTypingInterval = 500;

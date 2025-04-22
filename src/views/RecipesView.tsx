@@ -72,7 +72,7 @@ export function RecipesView() {
     let filterByDiet = false;
 
     const seasons = ["winter", "summer", "autumn", "spring"];
-    const cuisines = ["italian", "thai", "american"];
+    const cuisines = ["italian", "thai", "american", "cuban", "mexican"];
     const meals = [
       "breakfast",
       "lunch",
