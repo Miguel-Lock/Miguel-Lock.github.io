@@ -61,6 +61,7 @@ export function DirectionsView({ recipeID }: { recipeID: number }) {
           sx={{
             flex: 2,
             width: { xs: "100%" },
+            pr: { md: "500px", xl: "300px" },
           }}
         >
           <Typography variant="h3" fontWeight="bold">
@@ -116,6 +117,7 @@ export function DirectionsView({ recipeID }: { recipeID: number }) {
           sx={{
             display: "flex",
             flexDirection: { xs: "column", md: "row" },
+            justifyContent: "center",
           }}
         >
           {/* This is the picture box */}
@@ -129,7 +131,9 @@ export function DirectionsView({ recipeID }: { recipeID: number }) {
               justifyItems: "center",
               maxWidth: "400px",
               order: { xs: 2, md: 3 },
-              right: { md: "25px" },
+              right: { md: "25px", xl: "75px" },
+              position: { md: "absolute" },
+              top: "100px",
             }}
           >
             <Card sx={{ maxWidth: 345, margin: "auto" }}>
@@ -186,7 +190,8 @@ export function DirectionsView({ recipeID }: { recipeID: number }) {
               flex: 1,
               order: { xs: 3, md: 2 },
               width: { xs: "100%" },
-              pr: { md: "100px" },
+              pr: { md: "500px", xl: "300px" },
+              mb: { md: 30 },
             }}
           >
             <Typography variant="h5" fontWeight="bold" sx={{ mt: 2 }}>
