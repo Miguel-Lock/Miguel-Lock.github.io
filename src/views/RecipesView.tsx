@@ -78,7 +78,7 @@ export function RecipesView() {
       "lunch",
       "dinner",
       "snacks",
-      "beverage",
+      "beverages",
       "desserts",
     ];
     const diets = ["gluten-free", "vegetarian"];

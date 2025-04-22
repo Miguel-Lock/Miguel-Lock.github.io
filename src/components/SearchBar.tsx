@@ -14,6 +14,7 @@ import {
   OutlinedInput,
   Checkbox,
   ListItemText,
+  ListSubheader,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import FilterListIcon from "@mui/icons-material/FilterList";
@@ -36,22 +37,20 @@ interface SearchProps {
   search: () => void;
 }
 
-const filterOptions = [
+const mealFilters = [
   "Breakfast",
   "Lunch",
   "Dinner",
   "Desserts",
   "Snacks",
-  "Beverage",
-  "Autumn",
-  "Spring",
-  "Winter",
-  "Summer",
-  "Gluten-Free",
-  "Vegetarian",
-  "Italian",
-  "Thai",
+  "Beverages",
 ];
+
+const seasonFilters = ["Autumn", "Spring", "Winter", "Summer"];
+
+const dietaryOptions = ["Gluten-Free", "Vegetarian", "High-Protein"];
+
+const cuisineFilters = ["Italian", "Thai", "American"];
 
 let typingTimer: ReturnType<typeof setTimeout>;
 const doneTypingInterval = 500;
@@ -80,6 +79,18 @@ export const SearchBar: React.FC<SearchProps> = ({
   const handleClose = () => {
     setAnchorEl(null);
     search();
+  };
+
+  const filterMenuItem = (option: string) => {
+    return (
+      <MenuItem key={option} value={option}>
+        <Checkbox
+          checked={selectedFilters.includes(option)}
+          sx={{ color: "text.primary" }}
+        />
+        <ListItemText primary={option} />
+      </MenuItem>
+    );
   };
 
   return (
@@ -130,6 +141,7 @@ export const SearchBar: React.FC<SearchProps> = ({
           setSearchQuery({ ...query, target: e.target.value });
           delayedSearch();
         }}
+        onKeyDown={(e) => (e.key === "Enter" ? search() : null)}
       />
 
       <Menu
@@ -166,9 +178,10 @@ export const SearchBar: React.FC<SearchProps> = ({
             min={5}
             max={60}
             sx={{ mt: 1, mb: 2 }}
-            onChange={(_: Event, value) =>
-              setSearchQuery({ ...query, maxTime: value as number })
-            }
+            onChange={(_: Event, value) => {
+              setSearchQuery({ ...query, maxTime: value as number });
+              search();
+            }}
           />
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">
@@ -177,12 +190,13 @@ export const SearchBar: React.FC<SearchProps> = ({
             <Select
               value={query.maxDifficulty}
               label="Max Difficulty"
-              onChange={(e: SelectChangeEvent) =>
+              onChange={(e: SelectChangeEvent) => {
                 setSearchQuery({
                   ...query,
                   maxDifficulty: e.target.value as "hard" | "moderate" | "easy",
-                })
-              }
+                });
+                search();
+              }}
               sx={{ mb: 2 }}
             >
               <MenuItem value={"hard"}>Hard</MenuItem>
@@ -191,7 +205,7 @@ export const SearchBar: React.FC<SearchProps> = ({
             </Select>
           </FormControl>
 
-          <FormControl sx={{ width: "100%" }}>
+          <FormControl>
             <InputLabel id="filter-label">Filters</InputLabel>
             <Select
               labelId="filter-label"
@@ -204,16 +218,28 @@ export const SearchBar: React.FC<SearchProps> = ({
                   typeof value === "string" ? value.split(",") : value;
                 setSelectedFilters(setValue);
                 setSearchQuery({ ...query, filters: setValue });
+                search();
               }}
               input={<OutlinedInput label="Filters" />}
               renderValue={(selected) => selected.join(", ")}
             >
-              {filterOptions.map((option) => (
-                <MenuItem key={option} value={option}>
-                  <Checkbox checked={selectedFilters.includes(option)} />
-                  <ListItemText primary={option} />
-                </MenuItem>
-              ))}
+              <ListSubheader sx={{ color: "text.primary" }}>Meal</ListSubheader>
+              {mealFilters.map((option: string) => filterMenuItem(option))}
+
+              <ListSubheader sx={{ color: "text.primary" }}>
+                Season
+              </ListSubheader>
+              {seasonFilters.map((option) => filterMenuItem(option))}
+
+              <ListSubheader sx={{ color: "text.primary" }}>
+                Dietary
+              </ListSubheader>
+              {dietaryOptions.map((option) => filterMenuItem(option))}
+
+              <ListSubheader sx={{ color: "text.primary" }}>
+                Cuisine
+              </ListSubheader>
+              {cuisineFilters.map((option) => filterMenuItem(option))}
             </Select>
           </FormControl>
         </Box>
