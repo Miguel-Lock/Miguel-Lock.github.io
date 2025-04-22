@@ -10,8 +10,10 @@ import {
   InputLabel,
   Select,
   SelectChangeEvent,
-  Autocomplete,
   Box,
+  OutlinedInput,
+  Checkbox,
+  ListItemText,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import FilterListIcon from "@mui/icons-material/FilterList";
@@ -187,25 +189,32 @@ export const SearchBar: React.FC<SearchProps> = ({
               <MenuItem value={"easy"}>Easy</MenuItem>
             </Select>
           </FormControl>
-          <Autocomplete
-            multiple
-            disableCloseOnSelect
-            options={filterOptions}
-            value={selectedFilters}
-            onChange={(_: SyntheticEvent, value: string[]) => {
-              setSelectedFilters(value);
-              setSearchQuery({ ...query, filters: value });
-            }}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                variant="outlined"
-                label="Filter by Tag"
-                placeholder="Add filters"
-              />
-            )}
-            sx={{ width: "100%" }}
-          />
+
+          <FormControl sx={{ width: "100%" }}>
+            <InputLabel id="filter-label">Filters</InputLabel>
+            <Select
+              labelId="filter-label"
+              id="selectFilter"
+              multiple
+              value={selectedFilters}
+              onChange={(e: SelectChangeEvent<string[]>) => {
+                const value = e.target.value;
+                const setValue =
+                  typeof value === "string" ? value.split(",") : value;
+                setSelectedFilters(setValue);
+                setSearchQuery({ ...query, filters: setValue });
+              }}
+              input={<OutlinedInput label="Filters" />}
+              renderValue={(selected) => selected.join(", ")}
+            >
+              {filterOptions.map((option) => (
+                <MenuItem key={option} value={option}>
+                  <Checkbox checked={selectedFilters.includes(option)} />
+                  <ListItemText primary={option} />
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </Box>
       </Menu>
     </>

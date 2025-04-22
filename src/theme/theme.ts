@@ -61,34 +61,6 @@ export const getTheme = (mode: "light" | "dark") => {
       fontFamily: "Montserrat, Arial, San-sarif",
     },
     components: {
-      MuiAutocomplete: {
-        styleOverrides: {
-          paper: {
-            backgroundColor: themeColors.paper,
-            color: themeColors.text,
-            "& .MuiAutocomplete-option": {
-              "&[aria-selected='true']": {
-                backgroundColor:
-                  mode === "dark"
-                    ? "rgba(255, 255, 255, 0.16)"
-                    : "rgba(0, 0, 0, 0.08)",
-              },
-              "&[aria-selected='true'].Mui-focused": {
-                backgroundColor:
-                  mode === "dark"
-                    ? "rgba(255, 255, 255, 0.24)"
-                    : "rgba(0, 0, 0, 0.12)",
-              },
-            },
-          },
-          clearIndicator: {
-            color: themeColors.dropdownIcon,
-          },
-          popupIndicator: {
-            color: themeColors.dropdownIcon,
-          },
-        },
-      },
       // TextField and Input styles
       MuiOutlinedInput: {
         styleOverrides: {
