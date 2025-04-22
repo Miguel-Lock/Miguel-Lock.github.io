@@ -81,7 +81,7 @@ export function RecipesView() {
       "beverages",
       "desserts",
     ];
-    const diets = ["gluten-free", "vegetarian"];
+    const diets = ["gluten-free", "vegetarian", "high-protein"];
     for (const index in filters) {
       const filter = filters[index];
       if (seasons.includes(filter.toLowerCase())) filterBySeason = true;
