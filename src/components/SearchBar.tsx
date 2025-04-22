@@ -159,6 +159,7 @@ export const SearchBar: React.FC<SearchProps> = ({
             value={query.maxTime}
             defaultValue={60}
             valueLabelDisplay="auto"
+            valueLabelFormat={(value) => (value === 60 ? "60+" : value)}
             shiftStep={30}
             step={5}
             marks
