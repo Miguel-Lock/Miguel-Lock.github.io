@@ -165,7 +165,7 @@ export const SearchBar: React.FC<SearchProps> = ({
         }}
       >
         <Box sx={{ display: "flex", flexDirection: "column", px: 2 }}>
-          <Typography>Max Cooking Time:</Typography>
+          <Typography>Max Time (min):</Typography>
           <Slider
             aria-label="Cooking Time"
             value={query.maxTime}
