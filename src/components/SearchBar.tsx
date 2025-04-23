@@ -52,9 +52,6 @@ const dietaryOptions = ["Gluten-Free", "Vegetarian", "High-Protein"];
 
 const cuisineFilters = ["Italian", "Thai", "American", "Cuban", "Mexican"];
 
-let typingTimer: ReturnType<typeof setTimeout>;
-const doneTypingInterval = 500;
-
 export const SearchBar: React.FC<SearchProps> = ({
   query,
   setSearchQuery,
@@ -64,13 +61,6 @@ export const SearchBar: React.FC<SearchProps> = ({
 }) => {
   const [selectedFilters, setSelectedFilters] = React.useState<string[]>([]);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  //waits for .5s since the user stops typing to search
-  const delayedSearch = () => {
-    clearTimeout(typingTimer);
-    typingTimer = setTimeout(() => {
-      search();
-    }, doneTypingInterval);
-  };
 
   const openMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -92,6 +82,10 @@ export const SearchBar: React.FC<SearchProps> = ({
       </MenuItem>
     );
   };
+
+  React.useEffect(() => {
+    search();
+  }, [query]);
 
   return (
     <>
@@ -139,7 +133,6 @@ export const SearchBar: React.FC<SearchProps> = ({
         onChange={(e) => {
           e.preventDefault();
           setSearchQuery({ ...query, target: e.target.value });
-          delayedSearch();
         }}
         onKeyDown={(e) => (e.key === "Enter" ? search() : null)}
       />
@@ -180,7 +173,6 @@ export const SearchBar: React.FC<SearchProps> = ({
             sx={{ mt: 1, mb: 2 }}
             onChange={(_: Event, value) => {
               setSearchQuery({ ...query, maxTime: value as number });
-              search();
             }}
           />
           <FormControl fullWidth>
@@ -195,7 +187,6 @@ export const SearchBar: React.FC<SearchProps> = ({
                   ...query,
                   maxDifficulty: e.target.value as "hard" | "moderate" | "easy",
                 });
-                search();
               }}
               sx={{
                 mb: 2,
@@ -223,7 +214,6 @@ export const SearchBar: React.FC<SearchProps> = ({
                   typeof value === "string" ? value.split(",") : value;
                 setSelectedFilters(setValue);
                 setSearchQuery({ ...query, filters: setValue });
-                search();
               }}
               input={<OutlinedInput label="Filters" />}
               renderValue={(selected) => selected.join(", ")}
