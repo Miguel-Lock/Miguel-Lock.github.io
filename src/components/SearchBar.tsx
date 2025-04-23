@@ -197,7 +197,12 @@ export const SearchBar: React.FC<SearchProps> = ({
                 });
                 search();
               }}
-              sx={{ mb: 2 }}
+              sx={{
+                mb: 2,
+                "& .MuiSelect-icon": {
+                  color: "text.primary", // Custom color
+                },
+              }}
             >
               <MenuItem value={"hard"}>Hard</MenuItem>
               <MenuItem value={"moderate"}>Moderate</MenuItem>
@@ -222,6 +227,11 @@ export const SearchBar: React.FC<SearchProps> = ({
               }}
               input={<OutlinedInput label="Filters" />}
               renderValue={(selected) => selected.join(", ")}
+              sx={{
+                "& .MuiSelect-icon": {
+                  color: "text.primary", // Custom color
+                },
+              }}
             >
               <ListSubheader sx={{ color: "text.primary" }}>Meal</ListSubheader>
               {mealFilters.map((option: string) => filterMenuItem(option))}
