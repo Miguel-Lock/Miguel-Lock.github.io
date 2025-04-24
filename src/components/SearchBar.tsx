@@ -38,6 +38,7 @@ interface SearchProps {
 }
 
 const mealFilters = [
+  "Appetizers",
   "Breakfast",
   "Lunch",
   "Dinner",

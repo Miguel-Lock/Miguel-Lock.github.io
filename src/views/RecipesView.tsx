@@ -74,6 +74,7 @@ export function RecipesView() {
     const seasons = ["winter", "summer", "autumn", "spring"];
     const cuisines = ["italian", "thai", "american", "cuban", "mexican"];
     const meals = [
+      "appetizers",
       "breakfast",
       "lunch",
       "dinner",
