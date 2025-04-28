@@ -72,16 +72,17 @@ export function RecipesView() {
     let filterByDiet = false;
 
     const seasons = ["winter", "summer", "autumn", "spring"];
-    const cuisines = ["italian", "thai", "american"];
+    const cuisines = ["italian", "thai", "american", "cuban", "mexican"];
     const meals = [
+      "appetizers",
       "breakfast",
       "lunch",
       "dinner",
       "snacks",
-      "beverage",
+      "beverages",
       "desserts",
     ];
-    const diets = ["gluten-free", "vegetarian"];
+    const diets = ["gluten-free", "vegetarian", "high-protein"];
     for (const index in filters) {
       const filter = filters[index];
       if (seasons.includes(filter.toLowerCase())) filterBySeason = true;

@@ -64,21 +64,23 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
         image={"/image_files/" + recipe.images[0]}
         alt={recipe.name}
       />
-      <CardContent sx={{ paddingBottom: "16px !important" }}>
-        <Typography variant="h6">{recipe.name}</Typography>
+      <CardContent sx={{ paddingBottom: "0px !important" }}>
+        <Box sx={{ height: "160px" }}>
+          <Typography variant="h6">{recipe.name}</Typography>
 
-        <Typography
-          variant="body2"
-          sx={{
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-            display: "-webkit-box",
-            WebkitLineClamp: "5",
-            WebkitBoxOrient: "vertical",
-          }}
-        >
-          {recipe.story}
-        </Typography>
+          <Typography
+            variant="body2"
+            sx={{
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              display: "-webkit-box",
+              WebkitLineClamp: "7",
+              WebkitBoxOrient: "vertical",
+            }}
+          >
+            {recipe.story}
+          </Typography>
+        </Box>
 
         <Box
           style={{
@@ -86,6 +88,10 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
+            position: "relative",
+            background: theme.palette.primary.light,
+            boxShadow: `0px 0px 40px 50px ${theme.palette.primary.light}`,
+            paddingBottom: "8px",
           }}
         >
           <InfoChip label={recipe.prep_time} />

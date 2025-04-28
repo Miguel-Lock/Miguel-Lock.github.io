@@ -60,9 +60,8 @@ export function DirectionsView({ recipeID }: { recipeID: number }) {
         <Box
           sx={{
             flex: 2,
-            order: 1,
             width: { xs: "100%" },
-            pr: { md: "425px", xl: "220px" },
+            pr: { md: "500px", xl: "300px" },
           }}
         >
           <Typography variant="h3" fontWeight="bold">
@@ -114,84 +113,96 @@ export function DirectionsView({ recipeID }: { recipeID: number }) {
           </Button>
         </Box>
 
-        {/* This is the picture box */}
         <Box
           sx={{
-            flex: 1,
-            bgcolor: "primary.light",
-            p: 2,
-            borderRadius: 2,
-            justifyItems: "center",
-            maxWidth: "400px",
-            order: { xs: 2, md: 3 },
-            position: { md: "absolute" },
-            right: { md: "25px" },
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            justifyContent: "center",
           }}
         >
-          <Card sx={{ maxWidth: 345, margin: "auto" }}>
-            <CardMedia
-              component="img"
-              image={"/image_files/" + displayedRecipe.images[image]}
-              alt={displayedRecipe.name}
-              sx={{ objectFit: "cover", maxWidth: "345px" }}
-            />
-          </Card>
-          <Box sx={{ justifyContent: "center", alignItems: "center" }}>
-            <IconButton
-              onClick={() =>
-                setImage(
-                  (image + displayedRecipe.images.length - 1) %
-                    displayedRecipe.images.length
-                )
-              }
-              sx={{ mr: 5 }}
-            >
-              <ArrowBackIosIcon sx={{ color: "text.primary" }} />
-            </IconButton>
+          {/* This is the picture box */}
+          <Box
+            sx={{
+              flex: 1,
+              bgcolor: "primary.light",
+              p: 2,
+              mb: 3,
+              borderRadius: 2,
+              justifyItems: "center",
+              maxWidth: "400px",
+              order: { xs: 2, md: 3 },
+              right: { md: "25px", xl: "75px" },
+              position: { md: "absolute" },
+              top: "100px",
+            }}
+          >
+            <Card sx={{ maxWidth: 345, margin: "auto" }}>
+              <CardMedia
+                component="img"
+                image={"/image_files/" + displayedRecipe.images[image]}
+                alt={displayedRecipe.name}
+                sx={{ objectFit: "cover", maxWidth: "345px" }}
+              />
+            </Card>
+            <Box sx={{ justifyContent: "center", alignItems: "center" }}>
+              <IconButton
+                onClick={() =>
+                  setImage(
+                    (image + displayedRecipe.images.length - 1) %
+                      displayedRecipe.images.length
+                  )
+                }
+                sx={{ mr: 5 }}
+              >
+                <ArrowBackIosIcon sx={{ color: "text.primary" }} />
+              </IconButton>
 
-            <IconButton
-              onClick={() =>
-                setImage((image + 1) % displayedRecipe.images.length)
-              }
-            >
-              <ArrowForwardIosIcon sx={{ color: "text.primary" }} />
-            </IconButton>
+              <IconButton
+                onClick={() =>
+                  setImage((image + 1) % displayedRecipe.images.length)
+                }
+              >
+                <ArrowForwardIosIcon sx={{ color: "text.primary" }} />
+              </IconButton>
+            </Box>
+
+            {/* Ingredients */}
+            <Typography variant="h6" fontWeight="bold" sx={{ marginTop: 2 }}>
+              Ingredients:
+            </Typography>
+
+            <FormGroup>
+              {displayedRecipe.ingredients.map((el, index) => {
+                return (
+                  <FormControlLabel
+                    key={"ingredient-" + index}
+                    control={<Checkbox sx={{ color: "text.primary" }} />}
+                    label={el}
+                  />
+                );
+              })}
+            </FormGroup>
           </Box>
 
-          {/* Ingredients */}
-          <Typography variant="h6" fontWeight="bold" sx={{ marginTop: 2 }}>
-            Ingredients:
-          </Typography>
-
-          <FormGroup>
-            {displayedRecipe.ingredients.map((el, index) => {
-              return (
-                <FormControlLabel
-                  key={"ingredient-" + index}
-                  control={<Checkbox sx={{ color: "text.primary" }} />}
-                  label={el}
-                />
-              );
-            })}
-          </FormGroup>
-        </Box>
-
-        {/* Directions */}
-        <Box
-          sx={{
-            order: { xs: 3, md: 2 },
-            width: { xs: "100%" },
-            pr: { md: "425px", xl: "220px" },
-          }}
-        >
-          <Typography variant="h5" fontWeight="bold" sx={{ mt: 2 }}>
-            Directions:
-          </Typography>
-          <Typography component="ol" sx={{ mt: 1, mb: 5 }}>
-            {displayedRecipe.steps.map((step, index) => (
-              <li key={"step-" + index}>{step}</li>
-            ))}
-          </Typography>
+          {/* Directions */}
+          <Box
+            sx={{
+              flex: 1,
+              order: { xs: 3, md: 2 },
+              width: { xs: "100%" },
+              pr: { md: "500px", xl: "300px" },
+              mb: { md: 30 },
+            }}
+          >
+            <Typography variant="h5" fontWeight="bold" sx={{ mt: 2 }}>
+              Directions:
+            </Typography>
+            <Typography component="ol" sx={{ mt: 1, mb: 5 }}>
+              {displayedRecipe.steps.map((step, index) => (
+                <li key={"step-" + index}>{step}</li>
+              ))}
+            </Typography>
+          </Box>
         </Box>
       </Container>
     </Box>
