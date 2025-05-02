@@ -42,7 +42,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     const checkDiscoParty = () => {
       return (
         typeof window !== "undefined" &&
-        localStorage.getItem("disco_party") === "yes"
+        localStorage.getItem("disco_party") === "true"
       );
     };
 

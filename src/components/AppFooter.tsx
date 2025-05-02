@@ -3,12 +3,21 @@
 import { AppBar, Toolbar, Typography, IconButton } from "@mui/material";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
+import CelebrationIcon from "@mui/icons-material/Celebration";
 // import Link from "next/link";
 import { Link } from "@mui/material";
 import { useTheme } from "@/context/ThemeContext";
 
 export function AppFooter() {
   const { themeMode, toggleMode } = useTheme();
+
+  const toggleDisco = () => {
+    if (typeof window !== "undefined") {
+      const currentDisco = localStorage.getItem("disco_party") === "true";
+      localStorage.setItem("disco_party", String(!currentDisco));
+      window.location.reload();
+    }
+  };
 
   return (
     <AppBar position="static">
@@ -23,6 +32,10 @@ export function AppFooter() {
             Source Code
           </Link>
         </Typography>
+
+        <IconButton color="inherit" onClick={() => toggleDisco()}>
+          <CelebrationIcon />
+        </IconButton>
 
         <IconButton color="inherit" onClick={toggleMode}>
           {themeMode === "dark" ? <LightModeIcon /> : <DarkModeIcon />}
