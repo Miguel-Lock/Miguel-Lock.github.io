@@ -24,15 +24,114 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const [mode, setMode] = useState<ThemeMode>("system");
 
   const themeMode =
-    // mode === "system" ? (prefersDarkMode ? "dark" : "light") : mode;
     mode === "system" ? (prefersDarkMode ? "dark" : "light") : mode;
 
   useEffect(() => {
-    if (typeof window != 'undefined') {
-    const storedTheme = localStorage.getItem('theme') as ThemeMode || "system";
-    setMode(storedTheme);
-    console.log("Stored color preferece: ", storedTheme);
+    if (typeof window != "undefined") {
+      const storedTheme =
+        (localStorage.getItem("theme") as ThemeMode) || "system";
+      setMode(storedTheme);
     }
+  }, []);
+
+  // Add disco party feature
+  useEffect(() => {
+    let discoInterval: NodeJS.Timeout | undefined;
+
+    // Function to check if disco party mode is enabled
+    const checkDiscoParty = () => {
+      return (
+        typeof window !== "undefined" &&
+        localStorage.getItem("disco_party") === "yes"
+      );
+    };
+
+    // Function to generate a random hex color
+    const getRandomColor = () => {
+      return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+    };
+
+    // Function to apply disco party theme
+    const applyDiscoTheme = () => {
+      // Get random colors
+      const backgroundColor = getRandomColor();
+      const textColor = getRandomColor();
+      const primaryColor = getRandomColor();
+
+      // Apply directly to document root for immediate effect
+      document.documentElement.style.setProperty(
+        "--disco-background",
+        backgroundColor
+      );
+      document.documentElement.style.setProperty("--disco-text", textColor);
+      document.documentElement.style.setProperty(
+        "--disco-primary",
+        primaryColor
+      );
+
+      // Apply to body element
+      if (document.body) {
+        document.body.style.backgroundColor = backgroundColor;
+        document.body.style.color = textColor;
+      }
+    };
+
+    // Function to remove disco styling
+    const removeDiscoTheme = () => {
+      // Remove CSS variables from document root
+      document.documentElement.style.removeProperty("--disco-background");
+      document.documentElement.style.removeProperty("--disco-text");
+      document.documentElement.style.removeProperty("--disco-primary");
+
+      // Clear inline styles from body
+      if (document.body) {
+        document.body.style.backgroundColor = "";
+        document.body.style.color = "";
+      }
+
+      // Set mode back to stored preference
+      if (typeof window !== "undefined") {
+        const storedTheme =
+          (localStorage.getItem("theme") as ThemeMode) || "system";
+        setMode(storedTheme);
+
+        // Force theme re-application immediately
+        const immediateTheme =
+          storedTheme === "system"
+            ? prefersDarkMode
+              ? "dark"
+              : "light"
+            : storedTheme;
+
+        const theme = getTheme(immediateTheme as "light" | "dark");
+
+        // Apply theme directly to ensure it takes effect
+        if (document.body) {
+          document.body.style.backgroundColor =
+            theme.palette.background.default;
+          document.body.style.color = theme.palette.text.primary;
+        }
+      }
+    };
+
+    // Function to set up the checking interval
+    const startChecking = () => {
+      discoInterval = setInterval(() => {
+        if (checkDiscoParty()) {
+          applyDiscoTheme();
+        } else {
+          removeDiscoTheme();
+        }
+      }, 100);
+    };
+
+    startChecking();
+
+    // Clean up on unmount
+    return () => {
+      if (discoInterval) clearInterval(discoInterval);
+      removeDiscoTheme();
+    };
   }, []);
 
   // Get the theme configuration based on current theme mode
@@ -55,8 +154,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
         newMode = "light";
         break;
     }
-    localStorage.setItem('theme', newMode);
-    console.log("Setting theme to: ", newMode);
+    localStorage.setItem("theme", newMode);
     setMode(newMode);
   };
 
